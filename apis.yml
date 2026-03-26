@@ -1,0 +1,28 @@
+aid: firecracker
+name: Firecracker
+description: >-
+  Firecracker is a virtual machine monitor that uses KVM to create and manage microVMs for serverless and container workloads.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Containers
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/firecracker/refs/heads/main/apis.yml
+created: '2026-03-26'
+modified: '2026-03-26'
+specificationVersion: '0.19'
+apis:
+  - aid: firecracker:firecracker
+    name: Firecracker
+    description: >-
+      Firecracker is a virtual machine monitor that uses KVM to create and manage microVMs for serverless and container workloads.
+    humanURL: https://github.com/api-evangelist/firecracker
+    tags:
+      - Containers
+    properties: []
+common:
+  - type: Website
+    url: https://github.com/api-evangelist/firecracker
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
