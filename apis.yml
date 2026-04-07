@@ -9,12 +9,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
+  - AWS
   - Containers
   - MicroVMs
+  - Open Source
   - Serverless
   - Virtualization
-  - Open Source
-  - AWS
 url: >-
   https://raw.githubusercontent.com/api-evangelist/firecracker/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -32,12 +32,12 @@ apis:
       virtualized workloads.
     humanURL: https://firecracker-microvm.github.io/
     tags:
+      - AWS
       - Containers
       - MicroVMs
+      - Open Source
       - Serverless
       - Virtualization
-      - Open Source
-      - AWS
     properties:
       - type: Documentation
         url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
