@@ -1,0 +1,53 @@
+---
+title: "Kata Containers 1.5 Release with Support for Firecracker"
+url: "https://aws.amazon.com/blogs/opensource/kata-containers-1-5-firecracker-support/"
+date: "Thu, 24 Jan 2019 04:01:24 +0000"
+author: "Arun Gupta"
+feed_url: "https://aws.amazon.com/blogs/opensource/tag/firecracker/feed/"
+---
+<p><img alt="Kata Containers logo." class="wp-image-2358 size-full aligncenter" height="253" src="https://d2908q01vomqb2.cloudfront.net/ca3512f4dfa95a03169c5a670a4c91a19b3077b4/2019/01/23/Kata-Containers-logo.jpg" width="993" /></p> 
+<p><a href="https://aws.amazon.com/cn/blogs/china/kata-containers-1-5-firecracker-support/">中文版</a> – <a href="http://firecracker-microvm.io/" rel="noopener noreferrer" target="_blank">Firecracker</a> was announced at re:Invent 2018. It provides security and isolation of virtual machines along with fast startup times and density of containers. It provides a cloud-native hypervisor for running containers safely and efficiently. In this post, Eric Ernst from the Kata Containers project explains how Firecracker meets a need in their community for a minimal hypervisor, and how it is now easily integrated with Kata Containers.</p> 
+<p>– <a href="http://twitter.com/arungupta" rel="noopener noreferrer" target="_blank">Arun</a></p> 
+<hr /> 
+<p><a href="https://katacontainers.io/">Kata Containers</a> is an open source project and global community working to build a standard implementation of lightweight virtual machines that feel and perform like containers, but provide stronger workload isolation by using a virtual machine as a second layer of defense.</p> 
+<p>While initially based on QEMU, the Kata Containers project was designed up front to support multiple hypervisor solutions.</p> 
+<p>At the end of November, Amazon Web Services announced the open sourcing of its <a href="https://github.com/firecracker-microvm/firecracker">Firecracker hypervisor</a>. From the <a href="https://github.com/firecracker-microvm/firecracker/blob/master/README.md">Firecracker GitHub readme</a>: <i>“</i><i>Firecracker has a minimalist design. It excludes unnecessary devices and guest-facing functionality to reduce the memory footprint and attack surface area of each microVM. This improves security, decreases the startup time, and increases hardware utilization.”</i></p> 
+<p>This was very exciting for the Kata community, as it addresses Kata end users’ requests for a more minimal hypervisor solution for simple use cases. The Kata community began working with Firecracker immediately, and had some great opportunities to collaborate with the Firecracker teams at AWS.</p> 
+<p><a href="https://twitter.com/nmeyerhans/status/1072361001792749568" rel="noopener noreferrer">https://twitter.com/nmeyerhans/status/1072361001792749568</a></p> 
+<p>This week we have <a href="http://lists.katacontainers.io/pipermail/kata-dev/2019-January/000667.html" rel="noopener noreferrer" target="_blank">released</a> <a href="https://github.com/kata-containers/runtime/releases/tag/1.5.0">Kata Containers 1.5</a>, which introduces preliminary support for the <a href="https://github.com/firecracker-microvm/firecracker">Firecracker hypervisor</a>. This is complementary to the project’s existing QEMU support. Given the tradeoff on features available in Firecracker, we expect people will use Firecracker for feature-constrained workloads, and use a minimal QEMU when working with more advanced workloads (for example, if device assignment is necessary, QEMU should be used).</p> 
+<p>We foresee that it would be typical to utilize runc, Kata + QEMU and Kata + Firecracker in a single Kubernetes cluster, as shown in diagram below:</p> 
+<p><img alt="Kata Firecracker example diagram." class="wp-image-2357 size-large aligncenter" height="928" src="https://d2908q01vomqb2.cloudfront.net/ca3512f4dfa95a03169c5a670a4c91a19b3077b4/2019/01/23/Kata-Firecracker-example-1024x928.jpg" width="1024" /></p> 
+<p>&nbsp;</p> 
+<p>To achieve this configuration, the cluster must be configured to use either CRI-O or containerd, and must be configured to use the <a href="https://kubernetes.io/blog/2018/10/10/kubernetes-v1.12-introducing-runtimeclass/">runtimeClass feature of Kubernetes</a>. With runtimeClass configured in Kubernetes as well as in CRI-O/containerd, end users can select the type of isolation they’d like on a per-workload basis. In this example, two runtimeClasses are registered: <a href="https://raw.githubusercontent.com/clearlinux/cloud-native-setup/master/clr-k8s-examples/8-kata/kata-qemu-runtimeClass.yaml"><i>kata-qemu</i></a> and <a href="https://raw.githubusercontent.com/clearlinux/cloud-native-setup/master/clr-k8s-examples/8-kata/kata-fc-runtimeClass.yaml"><i>kata-fc</i></a>. &nbsp;Selecting Firecracker-based isolation is as simple as patching existing workloads with the following YAML snippet:</p> 
+<pre><code class="lang-yaml">spec:
+  template:
+    spec:
+      runtimeClassName: kata-fc</code></pre> 
+<p>To utilize QEMU, the <i>runtimeClassName </i>tag would be modified to <i>kata-qemu</i>.</p> 
+<p>A demonstration of this setup, utilizing CRI-O, Kata Containers and Firecracker VMM, can be seen in the screencast <a href="https://asciinema.org/a/219790">Kata configured in CRIO+K8S, utilizing both QEMU and Firecracker</a>.</p> 
+<p>runtimeClass is an alpha feature as of Kubernetes 1.13, so, as of today, it is still cumbersome to disable feature gates and bring up a cluster with runtimeClass appropriately configured. To facilitate getting started quickly with Kata, Firecracker, and runtimeClass, we provided a <a href="https://github.com/clearlinux/cloud-native-setup/tree/master/clr-k8s-examples">vagrant image</a>, along with directions on how to bring up and use the configured cluster.</p> 
+<p>As previously mentioned, the Firecracker hypervisor is minimal by design. As a result, there will always be gaps in Kubernetes functionality when using Kata + Firecracker. One such gap is the inability to dynamically adjust memory and CPU definitions for a pod. Similarly, since Firecracker can only support block-based storage drivers and volumes, today devicemapper is required. &nbsp;This is available in Kubernetes + CRI-O and Docker version 18.06. Work is ongoing to add more storage driver options. See <a href="https://github.com/kata-containers/documentation/issues/351">this GitHub issue</a> for current limitations of Kata + Firecracker.</p> 
+<p>For the <a href="https://medium.com/kata-containers/kata-containers-1-5-release-99acbaf7cf34">Kata Containers 1.5 release</a>, Firecracker is included as part of our <a href="https://github.com/kata-containers/runtime/releases/tag/1.5.0">kata containers static release tarball</a>, which includes all of the configurations and binaries needed for running Kata + Firecracker. &nbsp;We are working to have this available in packages in the near future. To test this out with Docker CLI, see the <a href="https://github.com/kata-containers/documentation/wiki/Initial-release-of-Kata-Containers-with-Firecracker-support">getting started guide</a>, which includes details on how to bring up workloads with either Firecracker or QEMU for added isolation.</p> 
+<p>Looking beyond 1.5, we are planning plenty of enhancements for better Firecracker support:</p> 
+<ul> 
+ <li>Improved <a href="https://github.com/kata-containers/runtime/issues/943">block-based storage</a> driver support</li> 
+ <li><a href="https://github.com/kata-containers/runtime/issues/1129">Use the Firecracker Jailer to provide stronger host isolation. </a></li> 
+ <li>Optimizations around <a href="https://github.com/kata-containers/runtime/issues/1160">boot-time</a> </li> 
+ <li> <a href="https://github.com/kata-containers/runtime/issues/1102">Reference admission controller</a> to help select appropriate hypervisor isolation when using Kata Containers</li> 
+</ul> 
+<p>We’re excited to be working with the Firecracker team and continuing to improve our support for Firecracker VMM, and how it integrates into Kubernetes.</p> 
+<p>The Kata Containers community is stewarded by the <a href="https://www.openstack.org/foundation/">OpenStack Foundation</a> (OSF), which supports the development and adoption of open infrastructure globally by hosting open source projects and communities of practice. Kata’s open source community produces code under the Apache 2 license. Anyone is welcome to join and contribute code, documentation, and use cases.</p> 
+<p>Meet and collaborate with the Kata team at the <a href="https://www.openstack.org/summit/denver-2019/">Open Infrastructure Summit</a> in Denver, April 29 – May 1, 2019, where we will have several presentations, as well as collaborative working sessions where we can discuss roadmap, planning, and do hands-on hacking to improve the project. In the meantime, you can explore <a href="https://github.com/kata-containers">Kata on GitHub</a> and <a href="https://katacontainers.io/">KataContainers.io</a>, and get involved with the community via these channels:</p> 
+<ul> 
+ <li> <a href="http://bit.ly/KataSlack" rel="noopener noreferrer" target="_blank">Slack</a> or IRC Freenode: #kata-dev</li> 
+ <li><a href="http://lists.katacontainers.io" rel="noopener noreferrer" target="_blank">Mailing List</a></li> 
+ <li><a href="https://etherpad.openstack.org/p/katacontainers-2019-architecture-committee-mtgs">Weekly meetings</a></li> 
+ <li><a href="https://twitter.com/katacontainers">Twitter</a></li> 
+</ul> 
+<p>You can find more detail in Eric Ernst’s <a href="https://medium.com/kata-containers/kata-containers-1-5-release-99acbaf7cf34">Kata Containers 1.5&nbsp;release</a> post.</p> 
+<div class="blog-author-box" style="border: 1px solid #d5dbdb; padding: 15px;"> 
+ <p class="blog-author-image"><img alt="Eric Ernst." class="alignleft size-thumbnail wp-image-2360" height="150" src="https://d2908q01vomqb2.cloudfront.net/ca3512f4dfa95a03169c5a670a4c91a19b3077b4/2019/01/23/Eric-Ernst-1-150x150.jpeg" width="150" /></p> 
+ <h3 class="lb-h4">Eric Ernst</h3> 
+ <p style="color: #879196; font-size: 1.2rem;">Eric Ernst, Kata Containers Architecture Committee, is a senior software engineer at Intel’s Open Source Technology Center, based out of Portland, Oregon. Eric has spent the last several years working on embedded firmware and the Linux kernel. Eric has been a developer and technical lead for container runtime efforts at Intel for the two years and is very excited to be on the Architecture Committee for the Kata Containers project.</p> 
+</div> 
+<p><em>The content and opinions in this post are those of the third-party author and AWS is not responsible for the content or accuracy of this post.</em></p>
