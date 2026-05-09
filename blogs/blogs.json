@@ -4,10 +4,10 @@
     {
       "source": "https://aws.amazon.com/blogs/opensource/tag/firecracker/",
       "feed_url": "https://aws.amazon.com/blogs/opensource/tag/firecracker/feed/",
-      "saved": 1,
-      "title": "Firecracker \u2013 AWS Open Source Blog"
+      "title": "Firecracker \u2013 AWS Open Source Blog",
+      "saved": 0
     }
   ],
   "post_count": 1,
-  "fetched": "2026-05-03T23:27:56Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
