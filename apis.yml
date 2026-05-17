@@ -43,7 +43,7 @@ apis:
     properties:
       - type: Documentation
         url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
-      - type: Getting Started
+      - type: GettingStarted
         url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
       - type: API Requests
         url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
@@ -56,13 +56,13 @@ apis:
 common:
   - type: Website
     url: https://firecracker-microvm.github.io/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/firecracker-microvm
-  - type: GitHub Repository
+  - type: GitHubRepository
     url: https://github.com/firecracker-microvm/firecracker
   - type: Documentation
     url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
-  - type: Getting Started
+  - type: GettingStarted
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
   - type: ChangeLog
     url: https://github.com/firecracker-microvm/firecracker/blob/main/CHANGELOG.md
