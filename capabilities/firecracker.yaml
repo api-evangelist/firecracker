@@ -1,21 +1,25 @@
 naftiko: 1.0.0-alpha2
 info:
   label: Firecracker API
-  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled
-    data. The transport medium is a Unix Domain Socket.
+  description: 'Firecracker API. 38 operations. Lead operation: Returns general information about an instance.. Self-contained
+    Naftiko capability covering one Firecracker business surface.'
   tags:
   - Firecracker
-  - API
-  created: '2026-05-06'
-  modified: '2026-05-06'
+  - Firecracker API
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    FIRECRACKER_API_KEY: FIRECRACKER_API_KEY
 capability:
   consumes:
   - type: http
     namespace: firecracker
-    baseUri: https://api.example.com
-    description: Firecracker API HTTP API.
+    baseUri: http://localhost
+    description: Firecracker API business capability. Self-contained, no shared references.
     resources:
-    - name: resource
+    - name: root
       path: /
       operations:
       - name: describeinstance
@@ -37,6 +41,11 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: info
+          in: body
+          type: string
+          required: true
     - name: balloon
       path: /balloon
       operations:
@@ -56,9 +65,59 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Balloon properties
+          required: true
       - name: patchballoon
         method: PATCH
         description: Updates a balloon device.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Balloon properties
+          required: true
+    - name: balloon-hinting-start
+      path: /balloon/hinting/start
+      operations:
+      - name: startballoonhinting
+        method: PATCH
+        description: Starts a free page hinting run only if enabled pre-boot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: When the device completes the hinting whether we should automatically ack this.
+    - name: balloon-hinting-status
+      path: /balloon/hinting/status
+      operations:
+      - name: describeballoonhinting
+        method: GET
+        description: Returns the balloon hinting statistics, only if enabled pre-boot.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: balloon-hinting-stop
+      path: /balloon/hinting/stop
+      operations:
+      - name: stopballoonhinting
+        method: PATCH
+        description: Stops a free page hinting run only if enabled pre-boot.
         outputRawFormat: json
         outputParameters:
         - name: result
@@ -83,39 +142,12 @@ capability:
         - name: result
           type: object
           value: $.
-    - name: balloon-hinting-start
-      path: /balloon/hinting/start
-      operations:
-      - name: startballoonhinting
-        method: PATCH
-        description: Starts a free page hinting run only if enabled pre-boot.
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: balloon-hinting-status
-      path: /balloon/hinting/status
-      operations:
-      - name: describeballoonhinting
-        method: GET
-        description: Returns the balloon hinting statistics, only if enabled pre-boot.
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: balloon-hinting-stop
-      path: /balloon/hinting/stop
-      operations:
-      - name: stopballoonhinting
-        method: PATCH
-        description: Stops a free page hinting run only if enabled pre-boot.
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Balloon properties
+          required: true
     - name: boot-source
       path: /boot-source
       operations:
@@ -127,6 +159,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Guest boot source properties
+          required: true
     - name: cpu-config
       path: /cpu-config
       operations:
@@ -138,63 +176,103 @@ capability:
         - name: result
           type: object
           value: $.
-    - name: drives-drive-id
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: CPU configuration request
+    - name: drives-drive_id
       path: /drives/{drive_id}
       operations:
       - name: putguestdrivebyid
         method: PUT
         description: Creates or updates a drive. Pre-boot only.
-        inputParameters:
-        - name: drive_id
-          in: path
-          type: string
-          required: true
-          description: The id of the guest drive
         outputRawFormat: json
         outputParameters:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: drive_id
+          in: path
+          type: string
+          description: The id of the guest drive
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: Guest drive properties
+          required: true
       - name: patchguestdrivebyid
         method: PATCH
         description: Updates the properties of a drive. Post-boot only.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
         inputParameters:
         - name: drive_id
           in: path
           type: string
-          required: true
           description: The id of the guest drive
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: pmem-id
-      path: /pmem/{id}
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: Guest drive properties
+          required: true
+    - name: entropy
+      path: /entropy
       operations:
-      - name: putguestpmembyid
+      - name: putentropydevice
         method: PUT
-        description: Creates or updates a pmem device. Pre-boot only.
-        inputParameters:
-        - name: id
-          in: path
-          type: string
-          required: true
-          description: The id of the guest pmem device
+        description: Creates an entropy device. Pre-boot only.
         outputRawFormat: json
         outputParameters:
         - name: result
           type: object
           value: $.
-      - name: patchguestpmembyid
-        method: PATCH
-        description: Updates the rate limiter of a pmem device. Post-boot only.
         inputParameters:
-        - name: id
-          in: path
+        - name: body
+          in: body
           type: string
+          description: Guest entropy device properties
           required: true
-          description: The id of the guest pmem device
+    - name: hotplug-memory
+      path: /hotplug/memory
+      operations:
+      - name: putmemoryhotplug
+        method: PUT
+        description: Configures the hotpluggable memory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Hotpluggable memory configuration
+          required: true
+      - name: patchmemoryhotplug
+        method: PATCH
+        description: Updates the size of the hotpluggable memory region
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Hotpluggable memory size update
+          required: true
+      - name: getmemoryhotplug
+        method: GET
+        description: Retrieves the status of the hotpluggable memory
         outputRawFormat: json
         outputParameters:
         - name: result
@@ -211,6 +289,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Logging system description
+          required: true
     - name: machine-config
       path: /machine-config
       operations:
@@ -230,6 +314,11 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Machine Configuration Parameters
       - name: patchmachineconfiguration
         method: PATCH
         description: Partially updates the Machine Configuration of the VM. Pre-boot only.
@@ -238,6 +327,11 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: A subset of Machine Configuration Parameters
     - name: metrics
       path: /metrics
       operations:
@@ -249,6 +343,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Metrics system description
+          required: true
     - name: mmds
       path: /mmds
       operations:
@@ -260,6 +360,11 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The MMDS data store as JSON.
       - name: patchmmds
         method: PATCH
         description: Updates the MMDS data store.
@@ -268,6 +373,11 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The MMDS data store patch JSON.
       - name: getmmds
         method: GET
         description: Get the MMDS data store.
@@ -287,17 +397,94 @@ capability:
         - name: result
           type: object
           value: $.
-    - name: entropy
-      path: /entropy
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The MMDS configuration as JSON.
+          required: true
+    - name: network-interfaces-iface_id
+      path: /network-interfaces/{iface_id}
       operations:
-      - name: putentropydevice
+      - name: putguestnetworkinterfacebyid
         method: PUT
-        description: Creates an entropy device. Pre-boot only.
+        description: Creates a network interface. Pre-boot only.
         outputRawFormat: json
         outputParameters:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: iface_id
+          in: path
+          type: string
+          description: The id of the guest network interface
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: Guest network interface properties
+          required: true
+      - name: patchguestnetworkinterfacebyid
+        method: PATCH
+        description: Updates the rate limiters applied to a network interface. Post-boot only.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: iface_id
+          in: path
+          type: string
+          description: The id of the guest network interface
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: A subset of the guest network interface properties
+          required: true
+    - name: pmem-id
+      path: /pmem/{id}
+      operations:
+      - name: putguestpmembyid
+        method: PUT
+        description: Creates or updates a pmem device. Pre-boot only.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The id of the guest pmem device
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: Guest pmem device properties
+          required: true
+      - name: patchguestpmembyid
+        method: PATCH
+        description: Updates the rate limiter of a pmem device. Post-boot only.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The id of the guest pmem device
+          required: true
+        - name: body
+          in: body
+          type: string
+          description: Pmem rate limiter properties
+          required: true
     - name: serial
       path: /serial
       operations:
@@ -309,64 +496,12 @@ capability:
         - name: result
           type: object
           value: $.
-    - name: hotplug-memory
-      path: /hotplug/memory
-      operations:
-      - name: putmemoryhotplug
-        method: PUT
-        description: Configures the hotpluggable memory
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-      - name: patchmemoryhotplug
-        method: PATCH
-        description: Updates the size of the hotpluggable memory region
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-      - name: getmemoryhotplug
-        method: GET
-        description: Retrieves the status of the hotpluggable memory
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-    - name: network-interfaces-iface-id
-      path: /network-interfaces/{iface_id}
-      operations:
-      - name: putguestnetworkinterfacebyid
-        method: PUT
-        description: Creates a network interface. Pre-boot only.
         inputParameters:
-        - name: iface_id
-          in: path
+        - name: body
+          in: body
           type: string
+          description: Serial console properties
           required: true
-          description: The id of the guest network interface
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
-      - name: patchguestnetworkinterfacebyid
-        method: PATCH
-        description: Updates the rate limiters applied to a network interface. Post-boot only.
-        inputParameters:
-        - name: iface_id
-          in: path
-          type: string
-          required: true
-          description: The id of the guest network interface
-        outputRawFormat: json
-        outputParameters:
-        - name: result
-          type: object
-          value: $.
     - name: snapshot-create
       path: /snapshot/create
       operations:
@@ -378,6 +513,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The configuration used for creating a snapshot.
+          required: true
     - name: snapshot-load
       path: /snapshot/load
       operations:
@@ -389,6 +530,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The configuration used for loading a snapshot.
+          required: true
     - name: version
       path: /version
       operations:
@@ -411,6 +558,12 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: The microVM state
+          required: true
     - name: vm-config
       path: /vm/config
       operations:
@@ -433,14 +586,21 @@ capability:
         - name: result
           type: object
           value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: string
+          description: Guest vsock properties
+          required: true
   exposes:
   - type: rest
-    port: 8080
     namespace: firecracker-rest
-    description: REST adapter for Firecracker API.
+    port: 8080
+    description: REST adapter for Firecracker API. One Spectral-compliant resource per consumed operation, prefixed with /v1.
     resources:
-    - path: /
-      name: describeinstance
+    - path: /v1
+      name: root
+      description: REST surface for root.
       operations:
       - method: GET
         name: describeinstance
@@ -449,18 +609,22 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /actions
-      name: createsyncaction
+    - path: /v1/actions
+      name: actions
+      description: REST surface for actions.
       operations:
       - method: PUT
         name: createsyncaction
         description: Creates a synchronous action.
         call: firecracker.createsyncaction
+        with:
+          info: rest.info
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon
-      name: describeballoonconfig
+    - path: /v1/balloon
+      name: balloon
+      description: REST surface for balloon.
       operations:
       - method: GET
         name: describeballoonconfig
@@ -469,58 +633,40 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon
-      name: putballoon
-      operations:
       - method: PUT
         name: putballoon
         description: Creates or updates a balloon device.
         call: firecracker.putballoon
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon
-      name: patchballoon
-      operations:
       - method: PATCH
         name: patchballoon
         description: Updates a balloon device.
         call: firecracker.patchballoon
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon/statistics
-      name: describeballoonstats
-      operations:
-      - method: GET
-        name: describeballoonstats
-        description: Returns the latest balloon device statistics, only if enabled pre-boot.
-        call: firecracker.describeballoonstats
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /balloon/statistics
-      name: patchballoonstatsinterval
-      operations:
-      - method: PATCH
-        name: patchballoonstatsinterval
-        description: Updates a balloon device statistics polling interval.
-        call: firecracker.patchballoonstatsinterval
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /balloon/hinting/start
-      name: startballoonhinting
+    - path: /v1/balloon/hinting/start
+      name: balloon-hinting-start
+      description: REST surface for balloon-hinting-start.
       operations:
       - method: PATCH
         name: startballoonhinting
         description: Starts a free page hinting run only if enabled pre-boot.
         call: firecracker.startballoonhinting
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon/hinting/status
-      name: describeballoonhinting
+    - path: /v1/balloon/hinting/status
+      name: balloon-hinting-status
+      description: REST surface for balloon-hinting-status.
       operations:
       - method: GET
         name: describeballoonhinting
@@ -529,8 +675,9 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /balloon/hinting/stop
-      name: stopballoonhinting
+    - path: /v1/balloon/hinting/stop
+      name: balloon-hinting-stop
+      description: REST surface for balloon-hinting-stop.
       operations:
       - method: PATCH
         name: stopballoonhinting
@@ -539,28 +686,55 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /boot-source
-      name: putguestbootsource
+    - path: /v1/balloon/statistics
+      name: balloon-statistics
+      description: REST surface for balloon-statistics.
+      operations:
+      - method: GET
+        name: describeballoonstats
+        description: Returns the latest balloon device statistics, only if enabled pre-boot.
+        call: firecracker.describeballoonstats
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchballoonstatsinterval
+        description: Updates a balloon device statistics polling interval.
+        call: firecracker.patchballoonstatsinterval
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/boot-source
+      name: boot-source
+      description: REST surface for boot-source.
       operations:
       - method: PUT
         name: putguestbootsource
         description: Creates or updates the boot source. Pre-boot only.
         call: firecracker.putguestbootsource
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /cpu-config
-      name: putcpuconfiguration
+    - path: /v1/cpu-config
+      name: cpu-config
+      description: REST surface for cpu-config.
       operations:
       - method: PUT
         name: putcpuconfiguration
         description: Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.
         call: firecracker.putcpuconfiguration
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /drives/{drive_id}
-      name: putguestdrivebyid
+    - path: /v1/drives/{drive-id}
+      name: drives-drive-id
+      description: REST surface for drives-drive_id.
       operations:
       - method: PUT
         name: putguestdrivebyid
@@ -568,57 +742,78 @@ capability:
         call: firecracker.putguestdrivebyid
         with:
           drive_id: rest.drive_id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /drives/{drive_id}
-      name: patchguestdrivebyid
-      operations:
       - method: PATCH
         name: patchguestdrivebyid
         description: Updates the properties of a drive. Post-boot only.
         call: firecracker.patchguestdrivebyid
         with:
           drive_id: rest.drive_id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /pmem/{id}
-      name: putguestpmembyid
+    - path: /v1/entropy
+      name: entropy
+      description: REST surface for entropy.
       operations:
       - method: PUT
-        name: putguestpmembyid
-        description: Creates or updates a pmem device. Pre-boot only.
-        call: firecracker.putguestpmembyid
+        name: putentropydevice
+        description: Creates an entropy device. Pre-boot only.
+        call: firecracker.putentropydevice
         with:
-          id: rest.id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /pmem/{id}
-      name: patchguestpmembyid
+    - path: /v1/hotplug/memory
+      name: hotplug-memory
+      description: REST surface for hotplug-memory.
       operations:
-      - method: PATCH
-        name: patchguestpmembyid
-        description: Updates the rate limiter of a pmem device. Post-boot only.
-        call: firecracker.patchguestpmembyid
+      - method: PUT
+        name: putmemoryhotplug
+        description: Configures the hotpluggable memory
+        call: firecracker.putmemoryhotplug
         with:
-          id: rest.id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /logger
-      name: putlogger
+      - method: PATCH
+        name: patchmemoryhotplug
+        description: Updates the size of the hotpluggable memory region
+        call: firecracker.patchmemoryhotplug
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getmemoryhotplug
+        description: Retrieves the status of the hotpluggable memory
+        call: firecracker.getmemoryhotplug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/logger
+      name: logger
+      description: REST surface for logger.
       operations:
       - method: PUT
         name: putlogger
         description: Initializes the logger by specifying a named pipe or a file for the logs output.
         call: firecracker.putlogger
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /machine-config
-      name: getmachineconfiguration
+    - path: /v1/machine-config
+      name: machine-config
+      description: REST surface for machine-config.
       operations:
       - method: GET
         name: getmachineconfiguration
@@ -627,59 +822,59 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /machine-config
-      name: putmachineconfiguration
-      operations:
       - method: PUT
         name: putmachineconfiguration
         description: Updates the Machine Configuration of the VM. Pre-boot only.
         call: firecracker.putmachineconfiguration
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /machine-config
-      name: patchmachineconfiguration
-      operations:
       - method: PATCH
         name: patchmachineconfiguration
         description: Partially updates the Machine Configuration of the VM. Pre-boot only.
         call: firecracker.patchmachineconfiguration
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /metrics
-      name: putmetrics
+    - path: /v1/metrics
+      name: metrics
+      description: REST surface for metrics.
       operations:
       - method: PUT
         name: putmetrics
         description: Initializes the metrics system by specifying a named pipe or a file for the metrics output.
         call: firecracker.putmetrics
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /mmds
-      name: putmmds
+    - path: /v1/mmds
+      name: mmds
+      description: REST surface for mmds.
       operations:
       - method: PUT
         name: putmmds
         description: Creates a MMDS (Microvm Metadata Service) data store.
         call: firecracker.putmmds
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /mmds
-      name: patchmmds
-      operations:
       - method: PATCH
         name: patchmmds
         description: Updates the MMDS data store.
         call: firecracker.patchmmds
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /mmds
-      name: getmmds
-      operations:
       - method: GET
         name: getmmds
         description: Get the MMDS data store.
@@ -687,68 +882,22 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /mmds/config
-      name: putmmdsconfig
+    - path: /v1/mmds/config
+      name: mmds-config
+      description: REST surface for mmds-config.
       operations:
       - method: PUT
         name: putmmdsconfig
         description: Set MMDS configuration. Pre-boot only.
         call: firecracker.putmmdsconfig
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /entropy
-      name: putentropydevice
-      operations:
-      - method: PUT
-        name: putentropydevice
-        description: Creates an entropy device. Pre-boot only.
-        call: firecracker.putentropydevice
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /serial
-      name: putserialdevice
-      operations:
-      - method: PUT
-        name: putserialdevice
-        description: Configures the serial console
-        call: firecracker.putserialdevice
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /hotplug/memory
-      name: putmemoryhotplug
-      operations:
-      - method: PUT
-        name: putmemoryhotplug
-        description: Configures the hotpluggable memory
-        call: firecracker.putmemoryhotplug
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /hotplug/memory
-      name: patchmemoryhotplug
-      operations:
-      - method: PATCH
-        name: patchmemoryhotplug
-        description: Updates the size of the hotpluggable memory region
-        call: firecracker.patchmemoryhotplug
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /hotplug/memory
-      name: getmemoryhotplug
-      operations:
-      - method: GET
-        name: getmemoryhotplug
-        description: Retrieves the status of the hotpluggable memory
-        call: firecracker.getmemoryhotplug
-        outputParameters:
-        - type: object
-          mapping: $.
-    - path: /network-interfaces/{iface_id}
-      name: putguestnetworkinterfacebyid
+    - path: /v1/network-interfaces/{iface-id}
+      name: network-interfaces-iface-id
+      description: REST surface for network-interfaces-iface_id.
       operations:
       - method: PUT
         name: putguestnetworkinterfacebyid
@@ -756,43 +905,86 @@ capability:
         call: firecracker.putguestnetworkinterfacebyid
         with:
           iface_id: rest.iface_id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /network-interfaces/{iface_id}
-      name: patchguestnetworkinterfacebyid
-      operations:
       - method: PATCH
         name: patchguestnetworkinterfacebyid
         description: Updates the rate limiters applied to a network interface. Post-boot only.
         call: firecracker.patchguestnetworkinterfacebyid
         with:
           iface_id: rest.iface_id
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /snapshot/create
-      name: createsnapshot
+    - path: /v1/pmem/{id}
+      name: pmem-id
+      description: REST surface for pmem-id.
+      operations:
+      - method: PUT
+        name: putguestpmembyid
+        description: Creates or updates a pmem device. Pre-boot only.
+        call: firecracker.putguestpmembyid
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchguestpmembyid
+        description: Updates the rate limiter of a pmem device. Post-boot only.
+        call: firecracker.patchguestpmembyid
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/serial
+      name: serial
+      description: REST surface for serial.
+      operations:
+      - method: PUT
+        name: putserialdevice
+        description: Configures the serial console
+        call: firecracker.putserialdevice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/snapshot/create
+      name: snapshot-create
+      description: REST surface for snapshot-create.
       operations:
       - method: PUT
         name: createsnapshot
         description: Creates a full or diff snapshot. Post-boot only.
         call: firecracker.createsnapshot
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /snapshot/load
-      name: loadsnapshot
+    - path: /v1/snapshot/load
+      name: snapshot-load
+      description: REST surface for snapshot-load.
       operations:
       - method: PUT
         name: loadsnapshot
         description: Loads a snapshot. Pre-boot only.
         call: firecracker.loadsnapshot
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /version
-      name: getfirecrackerversion
+    - path: /v1/version
+      name: version
+      description: REST surface for version.
       operations:
       - method: GET
         name: getfirecrackerversion
@@ -801,18 +993,22 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /vm
-      name: patchvm
+    - path: /v1/vm
+      name: vm
+      description: REST surface for vm.
       operations:
       - method: PATCH
         name: patchvm
         description: Updates the microVM state.
         call: firecracker.patchvm
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
-    - path: /vm/config
-      name: getexportvmconfig
+    - path: /v1/vm/config
+      name: vm-config
+      description: REST surface for vm-config.
       operations:
       - method: GET
         name: getexportvmconfig
@@ -821,23 +1017,27 @@ capability:
         outputParameters:
         - type: object
           mapping: $.
-    - path: /vsock
-      name: putguestvsock
+    - path: /v1/vsock
+      name: vsock
+      description: REST surface for vsock.
       operations:
       - method: PUT
         name: putguestvsock
         description: Creates/updates a vsock device. Pre-boot only.
         call: firecracker.putguestvsock
+        with:
+          body: rest.body
         outputParameters:
         - type: object
           mapping: $.
   - type: mcp
-    port: 9090
     namespace: firecracker-mcp
+    port: 9090
     transport: http
-    description: MCP adapter for Firecracker API for AI agent use.
+    description: MCP adapter for Firecracker API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
     tools:
-    - name: describeinstance
+    - name: returns-general-information-about-instance
       description: Returns general information about an instance.
       hints:
         readOnly: true
@@ -847,17 +1047,19 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: createsyncaction
+    - name: creates-synchronous-action
       description: Creates a synchronous action.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.createsyncaction
+      with:
+        info: tools.info
       outputParameters:
       - type: object
         mapping: $.
-    - name: describeballoonconfig
+    - name: returns-current-balloon-device-configuration
       description: Returns the current balloon device configuration.
       hints:
         readOnly: true
@@ -867,57 +1069,43 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: putballoon
+    - name: creates-updates-balloon-device
       description: Creates or updates a balloon device.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putballoon
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchballoon
+    - name: updates-balloon-device
       description: Updates a balloon device.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
-      call: firecracker.patchballoon
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: describeballoonstats
-      description: Returns the latest balloon device statistics, only if enabled pre-boot.
-      hints:
-        readOnly: true
-        destructive: false
         idempotent: true
-      call: firecracker.describeballoonstats
+      call: firecracker.patchballoon
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchballoonstatsinterval
-      description: Updates a balloon device statistics polling interval.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: firecracker.patchballoonstatsinterval
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: startballoonhinting
+    - name: starts-free-page-hinting-run
       description: Starts a free page hinting run only if enabled pre-boot.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.startballoonhinting
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: describeballoonhinting
+    - name: returns-balloon-hinting-statistics-only
       description: Returns the balloon hinting statistics, only if enabled pre-boot.
       hints:
         readOnly: true
@@ -927,37 +1115,63 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: stopballoonhinting
+    - name: stops-free-page-hinting-run
       description: Stops a free page hinting run only if enabled pre-boot.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.stopballoonhinting
       outputParameters:
       - type: object
         mapping: $.
-    - name: putguestbootsource
+    - name: returns-latest-balloon-device-statistics
+      description: Returns the latest balloon device statistics, only if enabled pre-boot.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: firecracker.describeballoonstats
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updates-balloon-device-statistics-polling
+      description: Updates a balloon device statistics polling interval.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.patchballoonstatsinterval
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-updates-boot-source-pre
       description: Creates or updates the boot source. Pre-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putguestbootsource
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: putcpuconfiguration
+    - name: configures-cpu-features-flags-vcpus
       description: Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putcpuconfiguration
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: putguestdrivebyid
+    - name: creates-updates-drive-pre-boot
       description: Creates or updates a drive. Pre-boot only.
       hints:
         readOnly: false
@@ -966,196 +1180,60 @@ capability:
       call: firecracker.putguestdrivebyid
       with:
         drive_id: tools.drive_id
-      inputParameters:
-      - name: drive_id
-        type: string
-        description: The id of the guest drive
-        required: true
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchguestdrivebyid
+    - name: updates-properties-drive-post-boot
       description: Updates the properties of a drive. Post-boot only.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.patchguestdrivebyid
       with:
         drive_id: tools.drive_id
-      inputParameters:
-      - name: drive_id
-        type: string
-        description: The id of the guest drive
-        required: true
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: putguestpmembyid
-      description: Creates or updates a pmem device. Pre-boot only.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putguestpmembyid
-      with:
-        id: tools.id
-      inputParameters:
-      - name: id
-        type: string
-        description: The id of the guest pmem device
-        required: true
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: patchguestpmembyid
-      description: Updates the rate limiter of a pmem device. Post-boot only.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: firecracker.patchguestpmembyid
-      with:
-        id: tools.id
-      inputParameters:
-      - name: id
-        type: string
-        description: The id of the guest pmem device
-        required: true
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putlogger
-      description: Initializes the logger by specifying a named pipe or a file for the logs output.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putlogger
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: getmachineconfiguration
-      description: Gets the machine configuration of the VM.
-      hints:
-        readOnly: true
-        destructive: false
-        idempotent: true
-      call: firecracker.getmachineconfiguration
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putmachineconfiguration
-      description: Updates the Machine Configuration of the VM. Pre-boot only.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putmachineconfiguration
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: patchmachineconfiguration
-      description: Partially updates the Machine Configuration of the VM. Pre-boot only.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: firecracker.patchmachineconfiguration
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putmetrics
-      description: Initializes the metrics system by specifying a named pipe or a file for the metrics output.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putmetrics
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putmmds
-      description: Creates a MMDS (Microvm Metadata Service) data store.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putmmds
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: patchmmds
-      description: Updates the MMDS data store.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: false
-      call: firecracker.patchmmds
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: getmmds
-      description: Get the MMDS data store.
-      hints:
-        readOnly: true
-        destructive: false
-        idempotent: true
-      call: firecracker.getmmds
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putmmdsconfig
-      description: Set MMDS configuration. Pre-boot only.
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putmmdsconfig
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putentropydevice
+    - name: creates-entropy-device-pre-boot
       description: Creates an entropy device. Pre-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putentropydevice
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: putserialdevice
-      description: Configures the serial console
-      hints:
-        readOnly: false
-        destructive: false
-        idempotent: true
-      call: firecracker.putserialdevice
-      outputParameters:
-      - type: object
-        mapping: $.
-    - name: putmemoryhotplug
+    - name: configures-hotpluggable-memory
       description: Configures the hotpluggable memory
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putmemoryhotplug
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchmemoryhotplug
+    - name: updates-size-hotpluggable-memory-region
       description: Updates the size of the hotpluggable memory region
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.patchmemoryhotplug
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: getmemoryhotplug
+    - name: retrieves-status-hotpluggable-memory
       description: Retrieves the status of the hotpluggable memory
       hints:
         readOnly: true
@@ -1165,7 +1243,111 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: putguestnetworkinterfacebyid
+    - name: initializes-logger-specifying-named-pipe
+      description: Initializes the logger by specifying a named pipe or a file for the logs output.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putlogger
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-machine-configuration-vm
+      description: Gets the machine configuration of the VM.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: firecracker.getmachineconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updates-machine-configuration-vm-pre
+      description: Updates the Machine Configuration of the VM. Pre-boot only.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putmachineconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: partially-updates-machine-configuration-vm
+      description: Partially updates the Machine Configuration of the VM. Pre-boot only.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.patchmachineconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: initializes-metrics-system-specifying-named
+      description: Initializes the metrics system by specifying a named pipe or a file for the metrics output.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putmetrics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-mmds-microvm-metadata-service
+      description: Creates a MMDS (Microvm Metadata Service) data store.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putmmds
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updates-mmds-data-store
+      description: Updates the MMDS data store.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.patchmmds
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-mmds-data-store
+      description: Get the MMDS data store.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: firecracker.getmmds
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-mmds-configuration-pre-boot
+      description: Set MMDS configuration. Pre-boot only.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putmmdsconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-network-interface-pre-boot
       description: Creates a network interface. Pre-boot only.
       hints:
         readOnly: false
@@ -1174,52 +1356,86 @@ capability:
       call: firecracker.putguestnetworkinterfacebyid
       with:
         iface_id: tools.iface_id
-      inputParameters:
-      - name: iface_id
-        type: string
-        description: The id of the guest network interface
-        required: true
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchguestnetworkinterfacebyid
+    - name: updates-rate-limiters-applied-network
       description: Updates the rate limiters applied to a network interface. Post-boot only.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.patchguestnetworkinterfacebyid
       with:
         iface_id: tools.iface_id
-      inputParameters:
-      - name: iface_id
-        type: string
-        description: The id of the guest network interface
-        required: true
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: createsnapshot
+    - name: creates-updates-pmem-device-pre
+      description: Creates or updates a pmem device. Pre-boot only.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putguestpmembyid
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updates-rate-limiter-pmem-device
+      description: Updates the rate limiter of a pmem device. Post-boot only.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.patchguestpmembyid
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: configures-serial-console
+      description: Configures the serial console
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: firecracker.putserialdevice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-full-diff-snapshot-post
       description: Creates a full or diff snapshot. Post-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.createsnapshot
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: loadsnapshot
+    - name: loads-snapshot-pre-boot-only
       description: Loads a snapshot. Pre-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.loadsnapshot
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: getfirecrackerversion
+    - name: gets-firecracker-version
       description: Gets the Firecracker version.
       hints:
         readOnly: true
@@ -1229,17 +1445,19 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: patchvm
+    - name: updates-microvm-state
       description: Updates the microVM state.
       hints:
         readOnly: false
         destructive: false
-        idempotent: false
+        idempotent: true
       call: firecracker.patchvm
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
-    - name: getexportvmconfig
+    - name: gets-full-vm-configuration
       description: Gets the full VM configuration.
       hints:
         readOnly: true
@@ -1249,13 +1467,15 @@ capability:
       outputParameters:
       - type: object
         mapping: $.
-    - name: putguestvsock
+    - name: creates-updates-vsock-device-pre
       description: Creates/updates a vsock device. Pre-boot only.
       hints:
         readOnly: false
         destructive: false
         idempotent: true
       call: firecracker.putguestvsock
+      with:
+        body: tools.body
       outputParameters:
       - type: object
         mapping: $.
