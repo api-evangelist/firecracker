@@ -46,7 +46,7 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/firecracker.yaml
 common:
 - type: Website
