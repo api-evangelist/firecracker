@@ -49,6 +49,8 @@ apis:
   - type: X-NaftikoCapability
     url: capabilities/firecracker.yaml
 common:
+- type: AgenticAccess
+  url: agentic-access/firecracker-agentic-access.yml
 - type: Website
   url: https://firecracker-microvm.github.io/
 - type: GitHubOrganization
