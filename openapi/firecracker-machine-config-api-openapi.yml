@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Machine Config API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Machine Config
+paths:
+  /machine-config:
+    get:
+      summary: Gets the machine configuration of the VM.
+      description: Gets the machine configuration of the VM. When called before the PUT operation, it will return the default values for the vCPU count (=1), memory size (=128 MiB). By default SMT is disabled and there is no CPU Template.
+      operationId: getMachineConfiguration
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/MachineConfiguration'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Machine Config
+    put:
+      summary: Updates the Machine Configuration of the VM. Pre-boot only.
+      description: Updates the Virtual Machine Configuration with the specified input. Firecracker starts with default values for vCPU count (=1) and memory size (=128 MiB). The vCPU count is restricted to the [1, 32] range. With SMT enabled, the vCPU count is required to be either 1 or an even number in the range. otherwise there are no restrictions regarding the vCPU count. If 2M hugetlbfs pages are specified, then `mem_size_mib` must be a multiple of 2. If any of the parameters has an incorrect value, the whole update fails. All parameters that are optional and are not specified are set to their default values (smt = false, track_dirty_pages = false, cpu_template = None, huge_pages = None).
+      operationId: putMachineConfiguration
+      parameters:
+      - name: body
+        in: body
+        description: Machine Configuration Parameters
+        schema:
+          $ref: '#/definitions/MachineConfiguration'
+      responses:
+        204:
+          description: Machine Configuration created/updated
+        400:
+          description: Machine Configuration cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Machine Config
+    patch:
+      summary: Partially updates the Machine Configuration of the VM. Pre-boot only.
+      description: Partially updates the Virtual Machine Configuration with the specified input. If any of the parameters has an incorrect value, the whole update fails.
+      operationId: patchMachineConfiguration
+      parameters:
+      - name: body
+        in: body
+        description: A subset of Machine Configuration Parameters
+        schema:
+          $ref: '#/definitions/MachineConfiguration'
+      responses:
+        204:
+          description: Machine Configuration created/updated
+        400:
+          description: Machine Configuration cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Machine Config
+definitions:
+  MachineConfiguration:
+    type: object
+    description: Describes the number of vCPUs, memory size, SMT capabilities, huge page configuration and the CPU template.
+    required:
+    - mem_size_mib
+    - vcpu_count
+    properties:
+      cpu_template:
+        $ref: '#/definitions/CpuTemplate'
+      smt:
+        type: boolean
+        description: Flag for enabling/disabling simultaneous multithreading. Can be enabled only on x86.
+        default: false
+      mem_size_mib:
+        type: integer
+        description: Memory size of VM
+      track_dirty_pages:
+        type: boolean
+        description: Enable dirty page tracking. If this is enabled, then incremental guest memory snapshots can be created. These belong to diff snapshots, which contain, besides the microVM state, only the memory dirtied since a previous snapshot. Full snapshots each contain a full copy of the guest memory.
+        default: false
+      vcpu_count:
+        type: integer
+        minimum: 1
+        maximum: 32
+        description: Number of vCPUs (either 1 or an even number)
+      huge_pages:
+        type: string
+        enum:
+        - None
+        - 2M
+        description: Which huge pages configuration (if any) should be used to back guest memory.
+  CpuTemplate:
+    type: string
+    description: The CPU Template defines a set of flags to be disabled from the microvm so that the features exposed to the guest are the same as in the selected instance type. This parameter has been deprecated and it will be removed in future Firecracker release.
+    enum:
+    - C3
+    - T2
+    - T2S
+    - T2CL
+    - T2A
+    - V1N1
+    - None
+    default: None
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

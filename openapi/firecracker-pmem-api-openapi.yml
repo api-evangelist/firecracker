@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Pmem API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Pmem
+paths:
+  /pmem/{id}:
+    put:
+      summary: Creates or updates a pmem device. Pre-boot only.
+      description: Creates new pmem device with ID specified by id parameter. If a pmem device with the specified ID already exists, updates its state based on new input. Will fail if update is not possible.
+      operationId: putGuestPmemByID
+      parameters:
+      - name: id
+        in: path
+        description: The id of the guest pmem device
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: Guest pmem device properties
+        required: true
+        schema:
+          $ref: '#/definitions/Pmem'
+      responses:
+        204:
+          description: Pmem device is created/updated
+        400:
+          description: Pmem device cannot be created/updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Pmem
+    patch:
+      summary: Updates the rate limiter of a pmem device. Post-boot only.
+      description: Updates the rate limiter applied to the pmem device with the ID specified by the id path parameter.
+      operationId: patchGuestPmemByID
+      parameters:
+      - name: id
+        in: path
+        description: The id of the guest pmem device
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: Pmem rate limiter properties
+        required: true
+        schema:
+          $ref: '#/definitions/PartialPmem'
+      responses:
+        204:
+          description: Pmem device updated
+        400:
+          description: Pmem device cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Pmem
+definitions:
+  Pmem:
+    type: object
+    required:
+    - id
+    - path_on_host
+    properties:
+      id:
+        type: string
+        description: Identificator for this device.
+      path_on_host:
+        type: string
+        description: Host level path for the virtio-pmem device to use as a backing file.
+      root_device:
+        type: boolean
+        description: Flag to make this device be the root device for VM boot. Setting this flag will fail if there is another device configured to be a root device already.
+      read_only:
+        type: boolean
+        description: Flag to map backing file in read-only mode.
+      rate_limiter:
+        $ref: '#/definitions/RateLimiter'
+  RateLimiter:
+    type: object
+    description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+    properties:
+      bandwidth:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with bytes as tokens
+      ops:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with operations as tokens
+  TokenBucket:
+    type: object
+    description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
+    required:
+    - refill_time
+    - size
+    properties:
+      one_time_burst:
+        type: integer
+        format: int64
+        description: The initial size of a token bucket.
+        minimum: 0
+      refill_time:
+        type: integer
+        format: int64
+        description: The amount of milliseconds it takes for the bucket to refill.
+        minimum: 0
+      size:
+        type: integer
+        format: int64
+        description: The total number of tokens this bucket can hold.
+        minimum: 0
+  PartialPmem:
+    type: object
+    description: Defines a partial pmem device structure, used to update the rate limiter for that device, after microvm start.
+    required:
+    - id
+    properties:
+      id:
+        type: string
+      rate_limiter:
+        $ref: '#/definitions/RateLimiter'
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

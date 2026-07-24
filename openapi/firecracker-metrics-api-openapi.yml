@@ -1,0 +1,63 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Metrics API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Metrics
+paths:
+  /metrics:
+    put:
+      summary: Initializes the metrics system by specifying a named pipe or a file for the metrics output.
+      operationId: putMetrics
+      parameters:
+      - name: body
+        in: body
+        description: Metrics system description
+        required: true
+        schema:
+          $ref: '#/definitions/Metrics'
+      responses:
+        204:
+          description: Metrics system created.
+        400:
+          description: Metrics system cannot be initialized due to bad input request or metrics system already initialized.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Metrics
+definitions:
+  Metrics:
+    type: object
+    description: Describes the configuration option for the metrics capability.
+    required:
+    - metrics_path
+    properties:
+      metrics_path:
+        type: string
+        description: Path to the named pipe or file where the JSON-formatted metrics are flushed.
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

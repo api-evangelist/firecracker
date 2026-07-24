@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Firecracker API API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Firecracker API
+paths:
+  /:
+    get:
+      summary: Returns general information about an instance.
+      operationId: describeInstance
+      responses:
+        200:
+          description: The instance information
+          schema:
+            $ref: '#/definitions/InstanceInfo'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Firecracker API
+definitions:
+  InstanceInfo:
+    type: object
+    description: Describes MicroVM instance information.
+    required:
+    - app_name
+    - id
+    - state
+    - vmm_version
+    properties:
+      app_name:
+        description: Application name.
+        type: string
+      id:
+        description: MicroVM / instance ID.
+        type: string
+      state:
+        description: The current detailed state (Not started, Running, Paused) of the Firecracker instance. This value is read-only for the control-plane.
+        type: string
+        enum:
+        - Not started
+        - Running
+        - Paused
+      vmm_version:
+        description: MicroVM hypervisor build version.
+        type: string
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

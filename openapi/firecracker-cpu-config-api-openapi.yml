@@ -1,0 +1,166 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Cpu Config API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Cpu Config
+paths:
+  /cpu-config:
+    put:
+      summary: Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.
+      description: Provides configuration to the Firecracker process to specify vCPU resource configuration prior to launching the guest machine.
+      operationId: putCpuConfiguration
+      parameters:
+      - name: body
+        in: body
+        description: CPU configuration request
+        schema:
+          $ref: '#/definitions/CpuConfig'
+      responses:
+        204:
+          description: CPU configuration set successfully
+        400:
+          description: CPU configuration cannot be updated due to invalid input format
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Cpu Config
+definitions:
+  MsrModifier:
+    type: object
+    description: Modifier for a model specific register (x86_64)
+    required:
+    - addr
+    - bitmap
+    properties:
+      addr:
+        type: string
+        description: 32-bit MSR address as hex, binary, or decimal string (e.g., "0x10a", "0b100001010", "266")
+      bitmap:
+        type: string
+        description: 64-bit bitmap string defining which bits to modify. Format is "0b" followed by 64 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
+  CpuConfig:
+    type: object
+    description: The CPU configuration template defines a set of bit maps as modifiers of flags accessed by register to be disabled/enabled for the microvm.
+    properties:
+      kvm_capabilities:
+        type: array
+        description: A collection of KVM capabilities to be added or removed (both x86_64 and aarch64)
+        items:
+          type: string
+          description: KVM capability as a numeric string. Prefix with '!' to remove capability. Example "121" (add) or "!121" (remove)
+      cpuid_modifiers:
+        type: array
+        description: A collection of CPUID leaf modifiers (x86_64 only)
+        items:
+          $ref: '#/definitions/CpuidLeafModifier'
+      msr_modifiers:
+        type: array
+        description: A collection of model specific register modifiers (x86_64 only)
+        items:
+          $ref: '#/definitions/MsrModifier'
+      reg_modifiers:
+        type: array
+        description: A collection of register modifiers (aarch64 only)
+        items:
+          $ref: '#/definitions/ArmRegisterModifier'
+      vcpu_features:
+        type: array
+        description: A collection of vCPU features to be modified (aarch64 only)
+        items:
+          $ref: '#/definitions/VcpuFeatures'
+  VcpuFeatures:
+    type: object
+    description: vCPU feature modifier (aarch64)
+    required:
+    - index
+    - bitmap
+    properties:
+      index:
+        type: integer
+        format: int32
+        description: Index in the kvm_vcpu_init.features array
+      bitmap:
+        type: string
+        description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000001100000"
+  CpuidRegisterModifier:
+    type: object
+    description: Modifier for a specific CPUID register within a leaf (x86_64)
+    required:
+    - register
+    - bitmap
+    properties:
+      register:
+        type: string
+        description: Target CPUID register name
+        enum:
+        - eax
+        - ebx
+        - ecx
+        - edx
+      bitmap:
+        type: string
+        description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000000000001" or "0bxxxxxxxxxxxxxxxxxxxxxxxxxxxx0001"
+  CpuidLeafModifier:
+    type: object
+    description: Modifier for a CPUID leaf and subleaf (x86_64)
+    required:
+    - leaf
+    - subleaf
+    - flags
+    - modifiers
+    properties:
+      leaf:
+        type: string
+        description: CPUID leaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0"))
+      subleaf:
+        type: string
+        description: CPUID subleaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
+      flags:
+        type: integer
+        format: int32
+        description: KVM feature flags for this leaf-subleaf
+      modifiers:
+        type: array
+        description: Register modifiers for this CPUID leaf
+        items:
+          $ref: '#/definitions/CpuidRegisterModifier'
+  ArmRegisterModifier:
+    type: object
+    description: Modifier for an ARM register (aarch64)
+    required:
+    - addr
+    - bitmap
+    properties:
+      addr:
+        type: string
+        description: 64-bit register address as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
+      bitmap:
+        type: string
+        description: 128-bit bitmap string defining which bits to modify. Format is "0b" followed by up to 128 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

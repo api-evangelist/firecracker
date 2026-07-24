@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Serial API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Serial
+paths:
+  /serial:
+    put:
+      summary: Configures the serial console
+      operationId: putSerialDevice
+      description: Configure the serial console, which the guest can write its kernel logs to. Has no effect if the serial console is not also enabled on the guest kernel command line
+      parameters:
+      - name: body
+        in: body
+        description: Serial console properties
+        required: true
+        schema:
+          $ref: '#/definitions/SerialDevice'
+      responses:
+        204:
+          description: Serial device configured
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Serial
+definitions:
+  SerialDevice:
+    type: object
+    description: The configuration of the serial device
+    properties:
+      serial_out_path:
+        type: string
+        description: Path to a file or named pipe on the host to which serial output should be written.
+      rate_limiter:
+        $ref: '#/definitions/TokenBucket'
+        description: Optional token bucket for rate limiting serial console output bandwidth. When present, guest writes to the serial port that exceed the configured rate are silently dropped and counted in the `uart.rate_limiter_dropped_bytes` metric. When absent (the default), serial output is not rate-limited.
+  TokenBucket:
+    type: object
+    description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
+    required:
+    - refill_time
+    - size
+    properties:
+      one_time_burst:
+        type: integer
+        format: int64
+        description: The initial size of a token bucket.
+        minimum: 0
+      refill_time:
+        type: integer
+        format: int64
+        description: The amount of milliseconds it takes for the bucket to refill.
+        minimum: 0
+      size:
+        type: integer
+        format: int64
+        description: The total number of tokens this bucket can hold.
+        minimum: 0
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

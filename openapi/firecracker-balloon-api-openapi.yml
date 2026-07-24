@@ -1,0 +1,344 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Balloon API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Balloon
+paths:
+  /balloon:
+    get:
+      summary: Returns the current balloon device configuration.
+      operationId: describeBalloonConfig
+      responses:
+        200:
+          description: The balloon device configuration
+          schema:
+            $ref: '#/definitions/Balloon'
+        400:
+          description: Balloon device not configured.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+    put:
+      summary: Creates or updates a balloon device.
+      description: Creates a new balloon device if one does not already exist, otherwise updates it, before machine startup. This will fail after machine startup. Will fail if update is not possible.
+      operationId: putBalloon
+      parameters:
+      - name: body
+        in: body
+        description: Balloon properties
+        required: true
+        schema:
+          $ref: '#/definitions/Balloon'
+      responses:
+        204:
+          description: Balloon device created/updated
+        400:
+          description: Balloon device cannot be created/updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+    patch:
+      summary: Updates a balloon device.
+      description: Updates an existing balloon device, before or after machine startup. Will fail if update is not possible.
+      operationId: patchBalloon
+      parameters:
+      - name: body
+        in: body
+        description: Balloon properties
+        required: true
+        schema:
+          $ref: '#/definitions/BalloonUpdate'
+      responses:
+        204:
+          description: Balloon device updated
+        400:
+          description: Balloon device cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+  /balloon/statistics:
+    get:
+      summary: Returns the latest balloon device statistics, only if enabled pre-boot.
+      operationId: describeBalloonStats
+      responses:
+        200:
+          description: The balloon device statistics
+          schema:
+            $ref: '#/definitions/BalloonStats'
+        400:
+          description: The balloon device statistics were not enabled when the device was configured.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+    patch:
+      summary: Updates a balloon device statistics polling interval.
+      description: Updates an existing balloon device statistics interval, before or after machine startup. Will fail if update is not possible.
+      operationId: patchBalloonStatsInterval
+      parameters:
+      - name: body
+        in: body
+        description: Balloon properties
+        required: true
+        schema:
+          $ref: '#/definitions/BalloonStatsUpdate'
+      responses:
+        204:
+          description: Balloon statistics interval updated
+        400:
+          description: Balloon statistics interval cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+  /balloon/hinting/start:
+    patch:
+      summary: Starts a free page hinting run only if enabled pre-boot.
+      operationId: startBalloonHinting
+      parameters:
+      - name: body
+        in: body
+        description: When the device completes the hinting whether we should automatically ack this.
+        required: false
+        schema:
+          $ref: '#/definitions/BalloonStartCmd'
+      responses:
+        200:
+          description: Free page hinting run started.
+        400:
+          description: The balloon free hinting was not enabled when the device was configured.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+  /balloon/hinting/status:
+    get:
+      summary: Returns the balloon hinting statistics, only if enabled pre-boot.
+      operationId: describeBalloonHinting
+      responses:
+        200:
+          description: The balloon free page hinting statistics
+          schema:
+            $ref: '#/definitions/BalloonHintingStatus'
+        400:
+          description: The balloon free hinting was not enabled when the device was configured.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+  /balloon/hinting/stop:
+    patch:
+      summary: Stops a free page hinting run only if enabled pre-boot.
+      operationId: stopBalloonHinting
+      responses:
+        200:
+          description: Free page hinting run stopped.
+        400:
+          description: The balloon free hinting was not enabled when the device was configured.
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Balloon
+definitions:
+  Balloon:
+    type: object
+    required:
+    - amount_mib
+    - deflate_on_oom
+    description: Balloon device descriptor.
+    properties:
+      amount_mib:
+        type: integer
+        description: Target balloon size in MiB.
+      deflate_on_oom:
+        type: boolean
+        description: Whether the balloon should deflate when the guest has memory pressure.
+      stats_polling_interval_s:
+        type: integer
+        description: Interval in seconds between refreshing statistics. A non-zero value will enable the statistics. Defaults to 0.
+      free_page_hinting:
+        type: boolean
+        description: Whether the free page hinting feature is enabled.
+      free_page_reporting:
+        type: boolean
+        description: Whether the free page reporting feature is enabled.
+  BalloonUpdate:
+    type: object
+    required:
+    - amount_mib
+    description: Balloon device descriptor.
+    properties:
+      amount_mib:
+        type: integer
+        description: Target balloon size in MiB.
+  BalloonHintingStatus:
+    type: object
+    description: Describes the free page hinting status.
+    required:
+    - host_cmd
+    properties:
+      host_cmd:
+        description: The last command issued by the host.
+        type: integer
+      guest_cmd:
+        description: The last command provided by the guest.
+        type: integer
+  BalloonStats:
+    type: object
+    description: Describes the balloon device statistics.
+    required:
+    - target_pages
+    - actual_pages
+    - target_mib
+    - actual_mib
+    properties:
+      target_pages:
+        description: Target number of pages the device aims to hold.
+        type: integer
+      actual_pages:
+        description: Actual number of pages the device is holding.
+        type: integer
+      target_mib:
+        description: Target amount of memory (in MiB) the device aims to hold.
+        type: integer
+      actual_mib:
+        description: Actual amount of memory (in MiB) the device is holding.
+        type: integer
+      swap_in:
+        description: The amount of memory that has been swapped in (in bytes).
+        type: integer
+        format: int64
+      swap_out:
+        description: The amount of memory that has been swapped out to disk (in bytes).
+        type: integer
+        format: int64
+      major_faults:
+        description: The number of major page faults that have occurred.
+        type: integer
+        format: int64
+      minor_faults:
+        description: The number of minor page faults that have occurred.
+        type: integer
+        format: int64
+      free_memory:
+        description: The amount of memory not being used for any purpose (in bytes).
+        type: integer
+        format: int64
+      total_memory:
+        description: The total amount of memory available (in bytes).
+        type: integer
+        format: int64
+      available_memory:
+        description: An estimate of how much memory is available (in bytes) for starting new applications, without pushing the system to swap.
+        type: integer
+        format: int64
+      disk_caches:
+        description: The amount of memory, in bytes, that can be quickly reclaimed without additional I/O. Typically these pages are used for caching files from disk.
+        type: integer
+        format: int64
+      hugetlb_allocations:
+        description: The number of successful hugetlb page allocations in the guest.
+        type: integer
+        format: int64
+      hugetlb_failures:
+        description: The number of failed hugetlb page allocations in the guest.
+        type: integer
+        format: int64
+      oom_kill:
+        description: OOM killer invocations, indicating critical memory pressure.
+        type: integer
+        format: int64
+      alloc_stall:
+        description: Counter of Allocation enter a slow path to gain more memory page. The reclaim/scan metrics can reveal what is actually happening.
+        type: integer
+        format: int64
+      async_scan:
+        description: Amount of memory scanned asynchronously.
+        type: integer
+        format: int64
+      direct_scan:
+        description: Amount of memory scanned directly.
+        type: integer
+        format: int64
+      async_reclaim:
+        description: Amount of memory reclaimed asynchronously.
+        type: integer
+        format: int64
+      direct_reclaim:
+        description: Amount of memory reclaimed directly.
+        type: integer
+        format: int64
+  BalloonStartCmd:
+    type: object
+    description: Command used to start a free page hinting run.
+    properties:
+      acknowledge_on_stop:
+        description: If Firecracker should automatically acknowledge when the guest submits a done cmd.
+        type: boolean
+  BalloonStatsUpdate:
+    type: object
+    required:
+    - stats_polling_interval_s
+    description: Update the statistics polling interval, with the first statistics update scheduled immediately. Statistics cannot be turned on/off after boot.
+    properties:
+      stats_polling_interval_s:
+        type: integer
+        description: Interval in seconds between refreshing statistics.
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

@@ -1,0 +1,66 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Actions
+paths:
+  /actions:
+    put:
+      summary: Creates a synchronous action.
+      operationId: createSyncAction
+      parameters:
+      - name: info
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/InstanceActionInfo'
+      responses:
+        204:
+          description: The update was successful
+        400:
+          description: The action cannot be executed due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Actions
+definitions:
+  InstanceActionInfo:
+    type: object
+    description: Variant wrapper containing the real action.
+    required:
+    - action_type
+    properties:
+      action_type:
+        description: Enumeration indicating what type of action is contained in the payload
+        type: string
+        enum:
+        - FlushMetrics
+        - InstanceStart
+        - SendCtrlAltDel
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true

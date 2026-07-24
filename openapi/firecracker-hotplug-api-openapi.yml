@@ -1,0 +1,129 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Hotplug API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Hotplug
+paths:
+  /hotplug/memory:
+    put:
+      summary: Configures the hotpluggable memory
+      operationId: putMemoryHotplug
+      description: Configure the hotpluggable memory, which is a virtio-mem device, with an associated memory area that can be hot(un)plugged in the guest on demand using the PATCH API.
+      parameters:
+      - name: body
+        in: body
+        description: Hotpluggable memory configuration
+        required: true
+        schema:
+          $ref: '#/definitions/MemoryHotplugConfig'
+      responses:
+        204:
+          description: Hotpluggable memory configured
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Hotplug
+    patch:
+      summary: Updates the size of the hotpluggable memory region
+      operationId: patchMemoryHotplug
+      description: Updates the size of the hotpluggable memory region. The guest will plug and unplug memory to hit the requested memory.
+      parameters:
+      - name: body
+        in: body
+        description: Hotpluggable memory size update
+        required: true
+        schema:
+          $ref: '#/definitions/MemoryHotplugSizeUpdate'
+      responses:
+        204:
+          description: Hotpluggable memory configured
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Hotplug
+    get:
+      summary: Retrieves the status of the hotpluggable memory
+      operationId: getMemoryHotplug
+      description: Reuturn the status of the hotpluggable memory. This can be used to follow the progress of the guest after a PATCH API.
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/MemoryHotplugStatus'
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Hotplug
+definitions:
+  MemoryHotplugConfig:
+    type: object
+    description: The configuration of the hotpluggable memory device (virtio-mem)
+    properties:
+      total_size_mib:
+        type: integer
+        description: Total size of the hotpluggable memory in MiB.
+      slot_size_mib:
+        type: integer
+        default: 128
+        minimum: 128
+        description: Slot size for the hotpluggable memory in MiB. This will determine the granularity of hot-plug memory from the host. Refer to the device documentation on how to tune this value.
+      block_size_mib:
+        type: integer
+        default: 2
+        minimum: 2
+        description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
+  MemoryHotplugStatus:
+    type: object
+    description: The status of the hotpluggable memory device (virtio-mem)
+    properties:
+      total_size_mib:
+        type: integer
+        description: Total size of the hotpluggable memory in MiB.
+      slot_size_mib:
+        type: integer
+        description: Slot size for the hotpluggable memory in MiB.
+      block_size_mib:
+        type: integer
+        description: (Logical) Block size for the hotpluggable memory in MiB.
+      plugged_size_mib:
+        type: integer
+        description: Plugged size for the hotpluggable memory in MiB.
+      requested_size_mib:
+        type: integer
+        description: Requested size for the hotpluggable memory in MiB.
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true
+  MemoryHotplugSizeUpdate:
+    type: object
+    description: An update to the size of the hotpluggable memory region.
+    properties:
+      requested_size_mib:
+        type: integer
+        description: New target region size.

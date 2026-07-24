@@ -1,0 +1,89 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Entropy API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Entropy
+paths:
+  /entropy:
+    put:
+      summary: Creates an entropy device. Pre-boot only.
+      description: Enables an entropy device that provides high-quality random data to the guest.
+      operationId: putEntropyDevice
+      parameters:
+      - name: body
+        in: body
+        description: Guest entropy device properties
+        required: true
+        schema:
+          $ref: '#/definitions/EntropyDevice'
+      responses:
+        204:
+          description: Entropy device created
+        default:
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Entropy
+definitions:
+  EntropyDevice:
+    type: object
+    description: Defines an entropy device.
+    properties:
+      rate_limiter:
+        $ref: '#/definitions/RateLimiter'
+  TokenBucket:
+    type: object
+    description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
+    required:
+    - refill_time
+    - size
+    properties:
+      one_time_burst:
+        type: integer
+        format: int64
+        description: The initial size of a token bucket.
+        minimum: 0
+      refill_time:
+        type: integer
+        format: int64
+        description: The amount of milliseconds it takes for the bucket to refill.
+        minimum: 0
+      size:
+        type: integer
+        format: int64
+        description: The total number of tokens this bucket can hold.
+        minimum: 0
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true
+  RateLimiter:
+    type: object
+    description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+    properties:
+      bandwidth:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with bytes as tokens
+      ops:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with operations as tokens

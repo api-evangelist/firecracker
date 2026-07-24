@@ -1,0 +1,171 @@
+swagger: '2.0'
+info:
+  title: Firecracker Actions Drives API
+  description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
+  version: 1.16.0-dev
+  termsOfService: ''
+  contact:
+    email: firecracker-maintainers@amazon.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+tags:
+- name: Drives
+paths:
+  /drives/{drive_id}:
+    put:
+      summary: Creates or updates a drive. Pre-boot only.
+      description: Creates new drive with ID specified by drive_id path parameter. If a drive with the specified ID already exists, updates its state based on new input. Will fail if update is not possible.
+      operationId: putGuestDriveByID
+      parameters:
+      - name: drive_id
+        in: path
+        description: The id of the guest drive
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: Guest drive properties
+        required: true
+        schema:
+          $ref: '#/definitions/Drive'
+      responses:
+        204:
+          description: Drive created/updated
+        400:
+          description: Drive cannot be created/updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Drives
+    patch:
+      summary: Updates the properties of a drive. Post-boot only.
+      description: Updates the properties of the drive with the ID specified by drive_id path parameter. Will fail if update is not possible.
+      operationId: patchGuestDriveByID
+      parameters:
+      - name: drive_id
+        in: path
+        description: The id of the guest drive
+        required: true
+        type: string
+      - name: body
+        in: body
+        description: Guest drive properties
+        required: true
+        schema:
+          $ref: '#/definitions/PartialDrive'
+      responses:
+        204:
+          description: Drive updated
+        400:
+          description: Drive cannot be updated due to bad input
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Internal server error.
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+      - Drives
+definitions:
+  PartialDrive:
+    type: object
+    required:
+    - drive_id
+    properties:
+      drive_id:
+        type: string
+      path_on_host:
+        type: string
+        description: Host level path for the guest drive. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+      rate_limiter:
+        $ref: '#/definitions/RateLimiter'
+  RateLimiter:
+    type: object
+    description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+    properties:
+      bandwidth:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with bytes as tokens
+      ops:
+        $ref: '#/definitions/TokenBucket'
+        description: Token bucket with operations as tokens
+  TokenBucket:
+    type: object
+    description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
+    required:
+    - refill_time
+    - size
+    properties:
+      one_time_burst:
+        type: integer
+        format: int64
+        description: The initial size of a token bucket.
+        minimum: 0
+      refill_time:
+        type: integer
+        format: int64
+        description: The amount of milliseconds it takes for the bucket to refill.
+        minimum: 0
+      size:
+        type: integer
+        format: int64
+        description: The total number of tokens this bucket can hold.
+        minimum: 0
+  Drive:
+    type: object
+    required:
+    - drive_id
+    - is_root_device
+    properties:
+      drive_id:
+        type: string
+      partuuid:
+        type: string
+        description: Represents the unique id of the boot partition of this device. It is optional and it will be taken into account only if the is_root_device field is true.
+      is_root_device:
+        type: boolean
+      cache_type:
+        type: string
+        description: Represents the caching strategy for the block device.
+        enum:
+        - Unsafe
+        - Writeback
+        default: Unsafe
+      is_read_only:
+        type: boolean
+        description: Is block read only. This field is required for virtio-block config and should be omitted for vhost-user-block configuration.
+      path_on_host:
+        type: string
+        description: Host level path for the guest drive. This field is required for virtio-block config and should be omitted for vhost-user-block configuration.
+      rate_limiter:
+        $ref: '#/definitions/RateLimiter'
+      io_engine:
+        type: string
+        description: Type of the IO engine used by the device. "Async" is supported on host kernels newer than 5.10.51. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+        enum:
+        - Sync
+        - Async
+        default: Sync
+      socket:
+        type: string
+        description: Path to the socket of vhost-user-block backend. This field is required for vhost-user-block config should be omitted for virtio-block configuration.
+  Error:
+    type: object
+    properties:
+      fault_message:
+        type: string
+        description: A description of the error condition
+        readOnly: true
