@@ -5,7 +5,19 @@ description: Firecracker is an open source virtual machine monitor (VMM) built b
   isolation of traditional VMs with the speed and resource efficiency of containers. Firecracker exposes a RESTful management
   API over a Unix Domain Socket, specified in OpenAPI (Swagger 2.0).
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/firecracker.png
 tags:
 - AWS
 - Containers
@@ -19,29 +31,418 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: firecracker:firecracker
-  name: Firecracker API
-  description: The Firecracker management API is a RESTful public-facing API accessible through HTTP calls over a Unix Domain
-    Socket, carrying JSON modeled data. It is used to configure and control microVMs, including boot source, drives, network
-    interfaces, machine configuration, snapshots, and lifecycle actions. Firecracker powers AWS Lambda and AWS Fargate.
+- aid: firecracker:firecracker-actions-api
+  name: Firecracker Actions API
+  description: The Actions API from Firecracker — 1 operation(s) for actions.
   humanURL: https://github.com/firecracker-microvm/firecracker
   baseURL: http://localhost/
   tags:
-  - AWS
-  - Containers
-  - MicroVMs
-  - Open Source
-  - Serverless
-  - Virtualization
+  - Actions
   properties:
+  - type: OpenAPI
+    url: openapi/firecracker-actions-api-openapi.yml
   - type: Documentation
     url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
   - type: GettingStarted
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
   - type: API Requests
     url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-balloon-api
+  name: Firecracker Balloon API
+  description: The Balloon API from Firecracker — 5 operation(s) for balloon.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Balloon
+  properties:
   - type: OpenAPI
-    url: openapi/firecracker-openapi-original.yaml
+    url: openapi/firecracker-balloon-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-boot-source-api
+  name: Firecracker Boot Source API
+  description: The Boot Source API from Firecracker — 1 operation(s) for boot source.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Boot Source
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-boot-source-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-cpu-config-api
+  name: Firecracker Cpu Config API
+  description: The Cpu Config API from Firecracker — 1 operation(s) for cpu config.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Cpu Config
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-cpu-config-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-drives-api
+  name: Firecracker Drives API
+  description: The Drives API from Firecracker — 1 operation(s) for drives.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Drives
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-drives-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-entropy-api
+  name: Firecracker Entropy API
+  description: The Entropy API from Firecracker — 1 operation(s) for entropy.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Entropy
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-entropy-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-firecracker-api-api
+  name: Firecracker Firecracker API API
+  description: The Firecracker API API from Firecracker — 1 operation(s) for firecracker api.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Firecracker API
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-firecracker-api-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-hotplug-api
+  name: Firecracker Hotplug API
+  description: The Hotplug API from Firecracker — 1 operation(s) for hotplug.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Hotplug
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-hotplug-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-logger-api
+  name: Firecracker Logger API
+  description: The Logger API from Firecracker — 1 operation(s) for logger.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Logger
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-logger-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-machine-config-api
+  name: Firecracker Machine Config API
+  description: The Machine Config API from Firecracker — 1 operation(s) for machine config.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Machine Config
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-machine-config-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-metrics-api
+  name: Firecracker Metrics API
+  description: The Metrics API from Firecracker — 1 operation(s) for metrics.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-mmds-api
+  name: Firecracker Mmds API
+  description: The Mmds API from Firecracker — 2 operation(s) for mmds.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Mmds
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-mmds-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-network-interfaces-api
+  name: Firecracker Network Interfaces API
+  description: The Network Interfaces API from Firecracker — 1 operation(s) for network interfaces.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Network Interfaces
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-network-interfaces-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-pmem-api
+  name: Firecracker Pmem API
+  description: The Pmem API from Firecracker — 1 operation(s) for pmem.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Pmem
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-pmem-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-serial-api
+  name: Firecracker Serial API
+  description: The Serial API from Firecracker — 1 operation(s) for serial.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Serial
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-serial-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-snapshot-api
+  name: Firecracker Snapshot API
+  description: The Snapshot API from Firecracker — 2 operation(s) for snapshot.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-snapshot-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-version-api
+  name: Firecracker Version API
+  description: The Version API from Firecracker — 1 operation(s) for version.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-version-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-vm-api
+  name: Firecracker Vm API
+  description: The Vm API from Firecracker — 2 operation(s) for vm.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Vm
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-vm-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
+  - type: Specification
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
+  - type: Design
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
+  - type: X-NaftikoCapability
+    url: capabilities/firecracker.yaml
+- aid: firecracker:firecracker-vsock-api
+  name: Firecracker Vsock API
+  description: The Vsock API from Firecracker — 1 operation(s) for vsock.
+  humanURL: https://github.com/firecracker-microvm/firecracker
+  baseURL: http://localhost/
+  tags:
+  - Vsock
+  properties:
+  - type: OpenAPI
+    url: openapi/firecracker-vsock-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs
+  - type: GettingStarted
+    url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md
+  - type: API Requests
+    url: https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests
   - type: Specification
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
