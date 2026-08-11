@@ -51,8 +51,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-balloon-api
   name: Firecracker Balloon API
   description: The Balloon API from Firecracker — 5 operation(s) for balloon.
@@ -73,8 +71,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-boot-source-api
   name: Firecracker Boot Source API
   description: The Boot Source API from Firecracker — 1 operation(s) for boot source.
@@ -95,8 +91,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-cpu-config-api
   name: Firecracker Cpu Config API
   description: The Cpu Config API from Firecracker — 1 operation(s) for cpu config.
@@ -117,8 +111,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-drives-api
   name: Firecracker Drives API
   description: The Drives API from Firecracker — 1 operation(s) for drives.
@@ -139,8 +131,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-entropy-api
   name: Firecracker Entropy API
   description: The Entropy API from Firecracker — 1 operation(s) for entropy.
@@ -161,8 +151,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-firecracker-api-api
   name: Firecracker Firecracker API API
   description: The Firecracker API API from Firecracker — 1 operation(s) for firecracker api.
@@ -183,8 +171,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-hotplug-api
   name: Firecracker Hotplug API
   description: The Hotplug API from Firecracker — 1 operation(s) for hotplug.
@@ -205,8 +191,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-logger-api
   name: Firecracker Logger API
   description: The Logger API from Firecracker — 1 operation(s) for logger.
@@ -227,8 +211,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-machine-config-api
   name: Firecracker Machine Config API
   description: The Machine Config API from Firecracker — 1 operation(s) for machine config.
@@ -249,8 +231,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-metrics-api
   name: Firecracker Metrics API
   description: The Metrics API from Firecracker — 1 operation(s) for metrics.
@@ -271,8 +251,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-mmds-api
   name: Firecracker Mmds API
   description: The Mmds API from Firecracker — 2 operation(s) for mmds.
@@ -293,8 +271,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-network-interfaces-api
   name: Firecracker Network Interfaces API
   description: The Network Interfaces API from Firecracker — 1 operation(s) for network interfaces.
@@ -315,8 +291,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-pmem-api
   name: Firecracker Pmem API
   description: The Pmem API from Firecracker — 1 operation(s) for pmem.
@@ -337,8 +311,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-serial-api
   name: Firecracker Serial API
   description: The Serial API from Firecracker — 1 operation(s) for serial.
@@ -359,8 +331,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-snapshot-api
   name: Firecracker Snapshot API
   description: The Snapshot API from Firecracker — 2 operation(s) for snapshot.
@@ -381,8 +351,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-version-api
   name: Firecracker Version API
   description: The Version API from Firecracker — 1 operation(s) for version.
@@ -403,8 +371,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-vm-api
   name: Firecracker Vm API
   description: The Vm API from Firecracker — 2 operation(s) for vm.
@@ -425,8 +391,6 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 - aid: firecracker:firecracker-vsock-api
   name: Firecracker Vsock API
   description: The Vsock API from Firecracker — 1 operation(s) for vsock.
@@ -447,9 +411,18 @@ apis:
     url: https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
-  - type: X-NaftikoCapability
-    url: capabilities/firecracker.yaml
 common:
+- type: IssueTracker
+  url: https://github.com/firecracker-microvm/firecracker/issues
+- type: Releases
+  url: https://github.com/firecracker-microvm/firecracker/releases
+- type: CodeOfConduct
+  url: https://github.com/firecracker-microvm/firecracker/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/firecracker-microvm/firecracker/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/firecracker-microvm/firecracker/blob/main/LICENSE
 - type: AgenticAccess
   url: agentic-access/firecracker-agentic-access.yml
 - type: Website
