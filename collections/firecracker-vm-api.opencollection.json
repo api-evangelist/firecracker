@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Vm API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vm",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Updates the microVM state.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/vm"
+          },
+          "docs": "Sets the desired state (Paused or Resumed) for the microVM."
+        },
+        {
+          "info": {
+            "name": "Gets the full VM configuration.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vm/config"
+          },
+          "docs": "Gets configuration for all VM resources. If the VM is restored from a snapshot, the boot-source, machine-config.smt and machine-config.cpu_template will be empty."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

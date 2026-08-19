@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Hotplug API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hotplug",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves the status of the hotpluggable memory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hotplug/memory"
+          },
+          "docs": "Reuturn the status of the hotpluggable memory. This can be used to follow the progress of the guest after a PATCH API."
+        },
+        {
+          "info": {
+            "name": "Configures the hotpluggable memory",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/hotplug/memory"
+          },
+          "docs": "Configure the hotpluggable memory, which is a virtio-mem device, with an associated memory area that can be hot(un)plugged in the guest on demand using the PATCH API."
+        },
+        {
+          "info": {
+            "name": "Updates the size of the hotpluggable memory region",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/hotplug/memory"
+          },
+          "docs": "Updates the size of the hotpluggable memory region. The guest will plug and unplug memory to hit the requested memory."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,382 @@
+{
+  "item": [
+    {
+      "id": "287e7614-406a-4d18-82e3-447713effe26",
+      "name": "Snapshot",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9b0395c-68f0-452d-8e64-17acdf849258",
+          "name": "Creates a full or diff snapshot. Post-boot only.",
+          "request": {
+            "name": "Creates a full or diff snapshot. Post-boot only.",
+            "description": {
+              "content": "Creates a snapshot of the microVM state. The microVM should be in the `Paused` state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshot",
+                "create"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mem_file_path\": \"<string>\",\n  \"snapshot_path\": \"<string>\",\n  \"snapshot_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15fc61bb-c77a-4855-8355-1d471049c225",
+              "name": "Snapshot created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_file_path\": \"<string>\",\n  \"snapshot_path\": \"<string>\",\n  \"snapshot_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c377c78-8ee6-4a93-aed6-7f6cafacbe07",
+              "name": "Snapshot cannot be created due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_file_path\": \"<string>\",\n  \"snapshot_path\": \"<string>\",\n  \"snapshot_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08e69f7d-4df9-4b91-9011-0f3c5076e744",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "create"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_file_path\": \"<string>\",\n  \"snapshot_path\": \"<string>\",\n  \"snapshot_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b29a06ba-ddf3-452c-baf9-6080383a4c09",
+          "name": "Loads a snapshot. Pre-boot only.",
+          "request": {
+            "name": "Loads a snapshot. Pre-boot only.",
+            "description": {
+              "content": "Loads the microVM state from a snapshot. Only accepted on a fresh Firecracker process (before configuring any resource other than the Logger and Metrics).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshot",
+                "load"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"snapshot_path\": \"<string>\",\n  \"enable_diff_snapshots\": \"<boolean>\",\n  \"track_dirty_pages\": \"<boolean>\",\n  \"mem_file_path\": \"<string>\",\n  \"mem_backend\": {\n    \"backend_type\": \"<string>\",\n    \"backend_path\": \"<string>\"\n  },\n  \"resume_vm\": \"<boolean>\",\n  \"network_overrides\": [\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    },\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    }\n  ],\n  \"vsock_override\": {\n    \"uds_path\": \"<string>\"\n  },\n  \"clock_realtime\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8e5a95b-7a6a-494c-b663-fd8a6692d15f",
+              "name": "Snapshot loaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "load"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"snapshot_path\": \"<string>\",\n  \"enable_diff_snapshots\": \"<boolean>\",\n  \"track_dirty_pages\": \"<boolean>\",\n  \"mem_file_path\": \"<string>\",\n  \"mem_backend\": {\n    \"backend_type\": \"<string>\",\n    \"backend_path\": \"<string>\"\n  },\n  \"resume_vm\": \"<boolean>\",\n  \"network_overrides\": [\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    },\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    }\n  ],\n  \"vsock_override\": {\n    \"uds_path\": \"<string>\"\n  },\n  \"clock_realtime\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91e44660-1e65-4ae6-b036-bc8bc99e4c29",
+              "name": "Snapshot cannot be loaded due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "load"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"snapshot_path\": \"<string>\",\n  \"enable_diff_snapshots\": \"<boolean>\",\n  \"track_dirty_pages\": \"<boolean>\",\n  \"mem_file_path\": \"<string>\",\n  \"mem_backend\": {\n    \"backend_type\": \"<string>\",\n    \"backend_path\": \"<string>\"\n  },\n  \"resume_vm\": \"<boolean>\",\n  \"network_overrides\": [\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    },\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    }\n  ],\n  \"vsock_override\": {\n    \"uds_path\": \"<string>\"\n  },\n  \"clock_realtime\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a306fb98-5fd1-477d-bd1a-5c4fb9115b55",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshot",
+                    "load"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"snapshot_path\": \"<string>\",\n  \"enable_diff_snapshots\": \"<boolean>\",\n  \"track_dirty_pages\": \"<boolean>\",\n  \"mem_file_path\": \"<string>\",\n  \"mem_backend\": {\n    \"backend_type\": \"<string>\",\n    \"backend_path\": \"<string>\"\n  },\n  \"resume_vm\": \"<boolean>\",\n  \"network_overrides\": [\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    },\n    {\n      \"iface_id\": \"<string>\",\n      \"host_dev_name\": \"<string>\"\n    }\n  ],\n  \"vsock_override\": {\n    \"uds_path\": \"<string>\"\n  },\n  \"clock_realtime\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b2df49bc-1d49-408b-8678-70e7b6d519a9",
+    "name": "Firecracker Actions Snapshot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "d700fad5-9932-4e07-946d-64f680d30f87",
+      "name": "Entropy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55843919-fa9d-4867-b42f-5af7152beac5",
+          "name": "Creates an entropy device. Pre-boot only.",
+          "request": {
+            "name": "Creates an entropy device. Pre-boot only.",
+            "description": {
+              "content": "Enables an entropy device that provides high-quality random data to the guest.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entropy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b740ff4-2ca4-496a-822d-227a2ae82184",
+              "name": "Entropy device created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entropy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "978ec731-aeaa-4ae0-8c9f-852dc2847f34",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entropy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "812b9edb-aff1-4e0a-a224-7e66eef3a09c",
+    "name": "Firecracker Actions Entropy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

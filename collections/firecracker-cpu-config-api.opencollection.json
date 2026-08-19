@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Cpu Config API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cpu Config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/cpu-config"
+          },
+          "docs": "Provides configuration to the Firecracker process to specify vCPU resource configuration prior to launching the guest machine."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "adf7edd4-f284-41eb-9014-02ee7c4ee270",
+      "name": "Boot Source",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f5d6520-077d-4fc0-be6a-46eb13cdd5f2",
+          "name": "Creates or updates the boot source. Pre-boot only.",
+          "request": {
+            "name": "Creates or updates the boot source. Pre-boot only.",
+            "description": {
+              "content": "Creates new boot source if one does not already exist, otherwise updates it. Will fail if update is not possible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "boot-source"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kernel_image_path\": \"<string>\",\n  \"boot_args\": \"<string>\",\n  \"initrd_path\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc53ea0f-8dcb-4022-bde4-c2514da0f0ec",
+              "name": "Boot source created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "boot-source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kernel_image_path\": \"<string>\",\n  \"boot_args\": \"<string>\",\n  \"initrd_path\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d46d3b36-7373-425a-b61a-29c9165b956a",
+              "name": "Boot source cannot be created due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "boot-source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kernel_image_path\": \"<string>\",\n  \"boot_args\": \"<string>\",\n  \"initrd_path\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42d6f00d-463d-4973-be53-a1c3a43f0120",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "boot-source"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kernel_image_path\": \"<string>\",\n  \"boot_args\": \"<string>\",\n  \"initrd_path\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "72d05a26-a91c-4263-9045-7439fe79e2ca",
+    "name": "Firecracker Actions Boot Source API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

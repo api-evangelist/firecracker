@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Balloon API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balloon",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the current balloon device configuration.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balloon"
+          },
+          "docs": "Returns the current balloon device configuration."
+        },
+        {
+          "info": {
+            "name": "Creates or updates a balloon device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/balloon"
+          },
+          "docs": "Creates a new balloon device if one does not already exist, otherwise updates it, before machine startup. This will fail after machine startup. Will fail if update is not possible."
+        },
+        {
+          "info": {
+            "name": "Updates a balloon device.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/balloon"
+          },
+          "docs": "Updates an existing balloon device, before or after machine startup. Will fail if update is not possible."
+        },
+        {
+          "info": {
+            "name": "Returns the latest balloon device statistics, only if enabled pre-boot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balloon/statistics"
+          },
+          "docs": "Returns the latest balloon device statistics, only if enabled pre-boot."
+        },
+        {
+          "info": {
+            "name": "Updates a balloon device statistics polling interval.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/balloon/statistics"
+          },
+          "docs": "Updates an existing balloon device statistics interval, before or after machine startup. Will fail if update is not possible."
+        },
+        {
+          "info": {
+            "name": "Starts a free page hinting run only if enabled pre-boot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/balloon/hinting/start"
+          },
+          "docs": "Starts a free page hinting run only if enabled pre-boot."
+        },
+        {
+          "info": {
+            "name": "Returns the balloon hinting statistics, only if enabled pre-boot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/balloon/hinting/status"
+          },
+          "docs": "Returns the balloon hinting statistics, only if enabled pre-boot."
+        },
+        {
+          "info": {
+            "name": "Stops a free page hinting run only if enabled pre-boot.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/balloon/hinting/stop"
+          },
+          "docs": "Stops a free page hinting run only if enabled pre-boot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

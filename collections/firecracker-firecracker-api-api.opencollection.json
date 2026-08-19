@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Firecracker API API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Firecracker API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns general information about an instance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/"
+          },
+          "docs": "Returns general information about an instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

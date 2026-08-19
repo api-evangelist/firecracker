@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Vsock API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vsock",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates/updates a vsock device. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/vsock"
+          },
+          "docs": "The first call creates the device with the configuration specified in body. Subsequent calls will update the device configuration. May fail if update is not possible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Logger API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initializes the logger by specifying a named pipe or a file for the logs output.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/logger"
+          },
+          "docs": "Initializes the logger by specifying a named pipe or a file for the logs output."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

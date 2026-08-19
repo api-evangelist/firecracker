@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Boot Source API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Boot Source",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates or updates the boot source. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/boot-source"
+          },
+          "docs": "Creates new boot source if one does not already exist, otherwise updates it. Will fail if update is not possible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

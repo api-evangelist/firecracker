@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Mmds API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mmds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the MMDS data store.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/mmds"
+          },
+          "docs": "Get the MMDS data store."
+        },
+        {
+          "info": {
+            "name": "Creates a MMDS (Microvm Metadata Service) data store.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/mmds"
+          },
+          "docs": "Creates a MMDS (Microvm Metadata Service) data store."
+        },
+        {
+          "info": {
+            "name": "Updates the MMDS data store.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/mmds"
+          },
+          "docs": "Updates the MMDS data store."
+        },
+        {
+          "info": {
+            "name": "Set MMDS configuration. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/mmds/config"
+          },
+          "docs": "Configures MMDS version, IPv4 address used by the MMDS network stack and interfaces that allow MMDS requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

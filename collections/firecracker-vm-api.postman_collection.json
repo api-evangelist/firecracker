@@ -1,0 +1,311 @@
+{
+  "item": [
+    {
+      "id": "16622ec5-7282-46f0-b409-a27b18fe523a",
+      "name": "Vm",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e29d4b2-a7a2-4e08-a112-2c5b246cb1e4",
+          "name": "Updates the microVM state.",
+          "request": {
+            "name": "Updates the microVM state.",
+            "description": {
+              "content": "Sets the desired state (Paused or Resumed) for the microVM.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"state\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df46d264-f021-4164-afb9-7a8fc182c14d",
+              "name": "Vm state updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3da0813-3e72-4341-9d8b-e5cd60da9447",
+              "name": "Vm state cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd213e31-e28a-4cf0-afea-b9f5f615f3e1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"state\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9afd3dc5-1590-477e-b6f1-51f086b88509",
+          "name": "Gets the full VM configuration.",
+          "request": {
+            "name": "Gets the full VM configuration.",
+            "description": {
+              "content": "Gets configuration for all VM resources. If the VM is restored from a snapshot, the boot-source, machine-config.smt and machine-config.cpu_template will be empty.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vm",
+                "config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b0a77d7-482d-43e1-9fad-e9410f6fea5e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vm",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balloon\": {\n    \"amount_mib\": 2840,\n    \"deflate_on_oom\": true,\n    \"stats_polling_interval_s\": 9195,\n    \"free_page_hinting\": false,\n    \"free_page_reporting\": false\n  },\n  \"drives\": [\n    {\n      \"drive_id\": \"string\",\n      \"is_root_device\": false,\n      \"partuuid\": \"string\",\n      \"cache_type\": \"Unsafe\",\n      \"is_read_only\": false,\n      \"path_on_host\": \"string\",\n      \"rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 1533,\n          \"size\": 2182,\n          \"one_time_burst\": 7862\n        },\n        \"ops\": {\n          \"refill_time\": 2233,\n          \"size\": 5814,\n          \"one_time_burst\": 9951\n        }\n      },\n      \"io_engine\": \"Sync\",\n      \"socket\": \"string\"\n    },\n    {\n      \"drive_id\": \"string\",\n      \"is_root_device\": true,\n      \"partuuid\": \"string\",\n      \"cache_type\": \"Unsafe\",\n      \"is_read_only\": false,\n      \"path_on_host\": \"string\",\n      \"rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 1124,\n          \"size\": 5537,\n          \"one_time_burst\": 3714\n        },\n        \"ops\": {\n          \"refill_time\": 6690,\n          \"size\": 1717,\n          \"one_time_burst\": 3534\n        }\n      },\n      \"io_engine\": \"Sync\",\n      \"socket\": \"string\"\n    }\n  ],\n  \"boot-source\": {\n    \"kernel_image_path\": \"string\",\n    \"boot_args\": \"string\",\n    \"initrd_path\": \"string\"\n  },\n  \"cpu-config\": {\n    \"kvm_capabilities\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cpuid_modifiers\": [\n      {\n        \"leaf\": \"string\",\n        \"subleaf\": \"string\",\n        \"flags\": 805,\n        \"modifiers\": [\n          {\n            \"register\": \"ebx\",\n            \"bitmap\": \"string\"\n          },\n          {\n            \"register\": \"eax\",\n            \"bitmap\": \"string\"\n          }\n        ]\n      },\n      {\n        \"leaf\": \"string\",\n        \"subleaf\": \"string\",\n        \"flags\": 9358,\n        \"modifiers\": [\n          {\n            \"register\": \"ecx\",\n            \"bitmap\": \"string\"\n          },\n          {\n            \"register\": \"edx\",\n            \"bitmap\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"msr_modifiers\": [\n      {\n        \"addr\": \"string\",\n        \"bitmap\": \"string\"\n      },\n      {\n        \"addr\": \"string\",\n        \"bitmap\": \"string\"\n      }\n    ],\n    \"reg_modifiers\": [\n      {\n        \"addr\": \"string\",\n        \"bitmap\": \"string\"\n      },\n      {\n        \"addr\": \"string\",\n        \"bitmap\": \"string\"\n      }\n    ],\n    \"vcpu_features\": [\n      {\n        \"index\": 2207,\n        \"bitmap\": \"string\"\n      },\n      {\n        \"index\": 2405,\n        \"bitmap\": \"string\"\n      }\n    ]\n  },\n  \"logger\": {\n    \"level\": \"Info\",\n    \"log_path\": \"string\",\n    \"show_level\": false,\n    \"show_log_origin\": false,\n    \"module\": \"api_server::request\"\n  },\n  \"machine-config\": {\n    \"mem_size_mib\": 2741,\n    \"vcpu_count\": 8,\n    \"cpu_template\": \"None\",\n    \"smt\": false,\n    \"track_dirty_pages\": false,\n    \"huge_pages\": \"2M\"\n  },\n  \"metrics\": {\n    \"metrics_path\": \"string\"\n  },\n  \"memory-hotplug\": {\n    \"total_size_mib\": 3955,\n    \"slot_size_mib\": 128,\n    \"block_size_mib\": 2\n  },\n  \"mmds-config\": {\n    \"network_interfaces\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"V1\",\n    \"ipv4_address\": \"169.254.169.254\",\n    \"imds_compat\": false\n  },\n  \"network-interfaces\": [\n    {\n      \"host_dev_name\": \"string\",\n      \"iface_id\": \"string\",\n      \"guest_mac\": \"string\",\n      \"rx_rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 4196,\n          \"size\": 1607,\n          \"one_time_burst\": 995\n        },\n        \"ops\": {\n          \"refill_time\": 357,\n          \"size\": 5459,\n          \"one_time_burst\": 1818\n        }\n      },\n      \"tx_rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 5652,\n          \"size\": 8047,\n          \"one_time_burst\": 8818\n        },\n        \"ops\": {\n          \"refill_time\": 4190,\n          \"size\": 1594,\n          \"one_time_burst\": 3596\n        }\n      }\n    },\n    {\n      \"host_dev_name\": \"string\",\n      \"iface_id\": \"string\",\n      \"guest_mac\": \"string\",\n      \"rx_rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 6906,\n          \"size\": 4464,\n          \"one_time_burst\": 3746\n        },\n        \"ops\": {\n          \"refill_time\": 1212,\n          \"size\": 6552,\n          \"one_time_burst\": 6608\n        }\n      },\n      \"tx_rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 3091,\n          \"size\": 1166,\n          \"one_time_burst\": 8125\n        },\n        \"ops\": {\n          \"refill_time\": 9395,\n          \"size\": 7196,\n          \"one_time_burst\": 7673\n        }\n      }\n    }\n  ],\n  \"pmem\": [\n    {\n      \"id\": \"string\",\n      \"path_on_host\": \"string\",\n      \"root_device\": false,\n      \"read_only\": true,\n      \"rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 3119,\n          \"size\": 7743,\n          \"one_time_burst\": 5907\n        },\n        \"ops\": {\n          \"refill_time\": 1825,\n          \"size\": 2760,\n          \"one_time_burst\": 4187\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"path_on_host\": \"string\",\n      \"root_device\": true,\n      \"read_only\": true,\n      \"rate_limiter\": {\n        \"bandwidth\": {\n          \"refill_time\": 2928,\n          \"size\": 751,\n          \"one_time_burst\": 8379\n        },\n        \"ops\": {\n          \"refill_time\": 4247,\n          \"size\": 2203,\n          \"one_time_burst\": 1910\n        }\n      }\n    }\n  ],\n  \"vsock\": {\n    \"guest_cid\": 5794,\n    \"uds_path\": \"string\",\n    \"vsock_id\": \"string\"\n  },\n  \"entropy\": {\n    \"rate_limiter\": {\n      \"bandwidth\": {\n        \"refill_time\": 701,\n        \"size\": 9707,\n        \"one_time_burst\": 570\n      },\n      \"ops\": {\n        \"refill_time\": 155,\n        \"size\": 1562,\n        \"one_time_burst\": 7779\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ebde44c-b146-4186-a9ff-6f00bb41328f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vm",
+                    "config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5117711c-76f8-4240-afbd-aa732805f464",
+    "name": "Firecracker Actions Vm API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

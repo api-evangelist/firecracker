@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Drives API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Drives",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates or updates a drive. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/drives/:drive_id",
+            "params": [
+              {
+                "name": "drive_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the guest drive"
+              }
+            ]
+          },
+          "docs": "Creates new drive with ID specified by drive_id path parameter. If a drive with the specified ID already exists, updates its state based on new input. Will fail if update is not possible."
+        },
+        {
+          "info": {
+            "name": "Updates the properties of a drive. Post-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/drives/:drive_id",
+            "params": [
+              {
+                "name": "drive_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the guest drive"
+              }
+            ]
+          },
+          "docs": "Updates the properties of the drive with the ID specified by drive_id path parameter. Will fail if update is not possible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "05a18ec2-2c78-402d-8d07-0a79a2113436",
+      "name": "Pmem",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95261427-ddd4-454f-ab05-dd5ebc7aa9ed",
+          "name": "Creates or updates a pmem device. Pre-boot only.",
+          "request": {
+            "name": "Creates or updates a pmem device. Pre-boot only.",
+            "description": {
+              "content": "Creates new pmem device with ID specified by id parameter. If a pmem device with the specified ID already exists, updates its state based on new input. Will fail if update is not possible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pmem",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the guest pmem device"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"root_device\": \"<boolean>\",\n  \"read_only\": \"<boolean>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "46e5487e-3ce8-4c85-b180-77990c7218a9",
+              "name": "Pmem device is created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"root_device\": \"<boolean>\",\n  \"read_only\": \"<boolean>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9829dd68-a697-4f70-ab6e-f51455f3cc28",
+              "name": "Pmem device cannot be created/updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"root_device\": \"<boolean>\",\n  \"read_only\": \"<boolean>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4fe0986-cf0e-4591-ac80-a749949b83b8",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"root_device\": \"<boolean>\",\n  \"read_only\": \"<boolean>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f2a4274-415f-4650-8d57-5b9019efa8f3",
+          "name": "Updates the rate limiter of a pmem device. Post-boot only.",
+          "request": {
+            "name": "Updates the rate limiter of a pmem device. Post-boot only.",
+            "description": {
+              "content": "Updates the rate limiter applied to the pmem device with the ID specified by the id path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pmem",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the guest pmem device"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "517e9192-474c-4f89-8595-bda2f344dad5",
+              "name": "Pmem device updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7b86ffa8-f326-42eb-a3a9-490c52750bdb",
+              "name": "Pmem device cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d034a24b-bb86-4265-ba4a-a65013f2847c",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pmem",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the guest pmem device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "aba282c7-0103-4f7c-8f96-69563fe5a373",
+    "name": "Firecracker Actions Pmem API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

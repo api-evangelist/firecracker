@@ -1,0 +1,479 @@
+{
+  "item": [
+    {
+      "id": "de1fbc5b-ce65-466d-9cde-381742fdbdf2",
+      "name": "Machine Config",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "632dcc95-d505-4a9c-ad67-53ee88a2da52",
+          "name": "Gets the machine configuration of the VM.",
+          "request": {
+            "name": "Gets the machine configuration of the VM.",
+            "description": {
+              "content": "Gets the machine configuration of the VM. When called before the PUT operation, it will return the default values for the vCPU count (=1), memory size (=128 MiB). By default SMT is disabled and there is no CPU Template.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "machine-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccbb3450-b625-4581-8a41-67e7a9c7663b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mem_size_mib\": 9388,\n  \"vcpu_count\": 9,\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"2M\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "393a3161-a8e3-42ac-87a0-096313fb4d71",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8645e90f-20f4-417f-8d72-974d20aa2614",
+          "name": "Updates the Machine Configuration of the VM. Pre-boot only.",
+          "request": {
+            "name": "Updates the Machine Configuration of the VM. Pre-boot only.",
+            "description": {
+              "content": "Updates the Virtual Machine Configuration with the specified input. Firecracker starts with default values for vCPU count (=1) and memory size (=128 MiB). The vCPU count is restricted to the [1, 32] range. With SMT enabled, the vCPU count is required to be either 1 or an even number in the range. otherwise there are no restrictions regarding the vCPU count. If 2M hugetlbfs pages are specified, then `mem_size_mib` must be a multiple of 2. If any of the parameters has an incorrect value, the whole update fails. All parameters that are optional and are not specified are set to their default values (smt = false, track_dirty_pages = false, cpu_template = None, huge_pages = None).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "machine-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a4f7bef-f04d-49f5-8845-824804eaf9a4",
+              "name": "Machine Configuration created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d585db94-5264-48fb-aceb-c11fb0c80652",
+              "name": "Machine Configuration cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c23ce037-4d07-4b3d-a418-7fb928c2694b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "853678da-b515-4643-b323-dd2ec9c41406",
+          "name": "Partially updates the Machine Configuration of the VM. Pre-boot only.",
+          "request": {
+            "name": "Partially updates the Machine Configuration of the VM. Pre-boot only.",
+            "description": {
+              "content": "Partially updates the Virtual Machine Configuration with the specified input. If any of the parameters has an incorrect value, the whole update fails.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "machine-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28bcbbe8-4166-46e6-bd43-54bd452e5a60",
+              "name": "Machine Configuration created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab751feb-b494-4ad9-bfa6-0dd682ee4183",
+              "name": "Machine Configuration cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36dbaf78-779e-4287-84dc-546a474520bd",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "machine-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mem_size_mib\": \"<integer>\",\n  \"vcpu_count\": \"<integer>\",\n  \"cpu_template\": \"None\",\n  \"smt\": false,\n  \"track_dirty_pages\": false,\n  \"huge_pages\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ab38b549-65d3-491c-9db9-b85add854ca7",
+    "name": "Firecracker Actions Machine Config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

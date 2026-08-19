@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Entropy API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entropy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates an entropy device. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/entropy"
+          },
+          "docs": "Enables an entropy device that provides high-quality random data to the guest."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

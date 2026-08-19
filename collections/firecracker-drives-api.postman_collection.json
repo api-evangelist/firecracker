@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "4726f803-a665-480b-a2a6-f61a3d762d72",
+      "name": "Drives",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45770575-9f2b-4e36-b8f5-658490056202",
+          "name": "Creates or updates a drive. Pre-boot only.",
+          "request": {
+            "name": "Creates or updates a drive. Pre-boot only.",
+            "description": {
+              "content": "Creates new drive with ID specified by drive_id path parameter. If a drive with the specified ID already exists, updates its state based on new input. Will fail if update is not possible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drives",
+                ":drive_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "drive_id",
+                  "description": "(Required) The id of the guest drive"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"drive_id\": \"<string>\",\n  \"is_root_device\": \"<boolean>\",\n  \"partuuid\": \"<string>\",\n  \"cache_type\": \"Unsafe\",\n  \"is_read_only\": \"<boolean>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"io_engine\": \"Sync\",\n  \"socket\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0828ce4-f34a-4084-9a59-cf5372b4ba35",
+              "name": "Drive created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"is_root_device\": \"<boolean>\",\n  \"partuuid\": \"<string>\",\n  \"cache_type\": \"Unsafe\",\n  \"is_read_only\": \"<boolean>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"io_engine\": \"Sync\",\n  \"socket\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b19d00ab-c4c2-4ca8-b674-01afa6106191",
+              "name": "Drive cannot be created/updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"is_root_device\": \"<boolean>\",\n  \"partuuid\": \"<string>\",\n  \"cache_type\": \"Unsafe\",\n  \"is_read_only\": \"<boolean>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"io_engine\": \"Sync\",\n  \"socket\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da61af88-3b32-4979-b64f-ff3119b5947e",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"is_root_device\": \"<boolean>\",\n  \"partuuid\": \"<string>\",\n  \"cache_type\": \"Unsafe\",\n  \"is_read_only\": \"<boolean>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"io_engine\": \"Sync\",\n  \"socket\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af72a381-33d6-48e9-8dea-bb0585633292",
+          "name": "Updates the properties of a drive. Post-boot only.",
+          "request": {
+            "name": "Updates the properties of a drive. Post-boot only.",
+            "description": {
+              "content": "Updates the properties of the drive with the ID specified by drive_id path parameter. Will fail if update is not possible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "drives",
+                ":drive_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "drive_id",
+                  "description": "(Required) The id of the guest drive"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"drive_id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15c8fe75-c7db-40da-89e4-e8fff29ada39",
+              "name": "Drive updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2daad87a-7dd1-4723-a64d-be5d8f83ff3e",
+              "name": "Drive cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6839a9b8-b081-41f6-b759-4945bb43fa46",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "drives",
+                    ":drive_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "drive_id",
+                      "description": "(Required) The id of the guest drive"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"drive_id\": \"<string>\",\n  \"path_on_host\": \"<string>\",\n  \"rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "58e38172-018f-43ef-bc60-60e6a359049f",
+    "name": "Firecracker Actions Drives API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

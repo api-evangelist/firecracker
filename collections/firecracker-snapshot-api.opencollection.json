@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Snapshot API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snapshot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a full or diff snapshot. Post-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/snapshot/create"
+          },
+          "docs": "Creates a snapshot of the microVM state. The microVM should be in the `Paused` state."
+        },
+        {
+          "info": {
+            "name": "Loads a snapshot. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/snapshot/load"
+          },
+          "docs": "Loads the microVM state from a snapshot. Only accepted on a fresh Firecracker process (before configuring any resource other than the Logger and Metrics)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

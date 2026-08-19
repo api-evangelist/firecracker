@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "910043e8-2c49-4645-a4e1-66f6d9da42de",
+      "name": "Network Interfaces",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a9485af5-76d2-4f19-b4cc-4518e278233c",
+          "name": "Creates a network interface. Pre-boot only.",
+          "request": {
+            "name": "Creates a network interface. Pre-boot only.",
+            "description": {
+              "content": "Creates new network interface with ID specified by iface_id path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "network-interfaces",
+                ":iface_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "iface_id",
+                  "description": "(Required) The id of the guest network interface"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host_dev_name\": \"<string>\",\n  \"iface_id\": \"<string>\",\n  \"guest_mac\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ed7027b-0ebf-4a60-97dc-87187cec2348",
+              "name": "Network interface created/updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host_dev_name\": \"<string>\",\n  \"iface_id\": \"<string>\",\n  \"guest_mac\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d93b831b-670b-4b73-8e99-36d14e8375e5",
+              "name": "Network interface cannot be created due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host_dev_name\": \"<string>\",\n  \"iface_id\": \"<string>\",\n  \"guest_mac\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f172f0b-f31a-47f7-8bbb-83e68ff6928a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host_dev_name\": \"<string>\",\n  \"iface_id\": \"<string>\",\n  \"guest_mac\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9269cbb-6a5f-4dd5-87a1-033f43cb4ccd",
+          "name": "Updates the rate limiters applied to a network interface. Post-boot only.",
+          "request": {
+            "name": "Updates the rate limiters applied to a network interface. Post-boot only.",
+            "description": {
+              "content": "Updates the rate limiters applied to a network interface.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "network-interfaces",
+                ":iface_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "iface_id",
+                  "description": "(Required) The id of the guest network interface"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"iface_id\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f0a6ad3-cea5-4316-9674-ef9ae28217aa",
+              "name": "Network interface updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"iface_id\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ae9958ff-bf36-4a8d-a68d-8dc34955c0e0",
+              "name": "Network interface cannot be updated due to bad input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"iface_id\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45335221-813b-4795-bd72-e2f0a9edb8a8",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "network-interfaces",
+                    ":iface_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "iface_id",
+                      "description": "(Required) The id of the guest network interface"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"iface_id\": \"<string>\",\n  \"rx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  },\n  \"tx_rate_limiter\": {\n    \"bandwidth\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    },\n    \"ops\": {\n      \"refill_time\": \"<long>\",\n      \"size\": \"<long>\",\n      \"one_time_burst\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "67f2273f-5a86-40e9-a01c-7c0ccf50dcaa",
+    "name": "Firecracker Actions Network Interfaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

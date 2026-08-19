@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "9ee08fa1-0163-4ed8-801a-546de3eb996a",
+      "name": "Cpu Config",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dad13cd-bafb-4647-bee5-e9e470fc437c",
+          "name": "Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.",
+          "request": {
+            "name": "Configures CPU features flags for the vCPUs of the guest VM. Pre-boot only.",
+            "description": {
+              "content": "Provides configuration to the Firecracker process to specify vCPU resource configuration prior to launching the guest machine.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cpu-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kvm_capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cpuid_modifiers\": [\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"msr_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"reg_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"vcpu_features\": [\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f2dffe6-3b8b-4aad-99fc-4a81bf9289a0",
+              "name": "CPU configuration set successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpu-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kvm_capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cpuid_modifiers\": [\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"msr_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"reg_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"vcpu_features\": [\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a006e86b-e32e-4ee1-a415-c60bc30b2a9f",
+              "name": "CPU configuration cannot be updated due to invalid input format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpu-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kvm_capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cpuid_modifiers\": [\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"msr_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"reg_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"vcpu_features\": [\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fccba04d-be1a-45cc-99d7-fc59235f59b3",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cpu-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"kvm_capabilities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cpuid_modifiers\": [\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"leaf\": \"<string>\",\n      \"subleaf\": \"<string>\",\n      \"flags\": \"<integer>\",\n      \"modifiers\": [\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        },\n        {\n          \"register\": \"<string>\",\n          \"bitmap\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"msr_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"reg_modifiers\": [\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"addr\": \"<string>\",\n      \"bitmap\": \"<string>\"\n    }\n  ],\n  \"vcpu_features\": [\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    },\n    {\n      \"index\": \"<integer>\",\n      \"bitmap\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a17a290f-4201-4219-a415-d02e36fa7ab5",
+    "name": "Firecracker Actions Cpu Config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.\n\nContact Support:\n Email: firecracker-maintainers@amazon.com",
+      "type": "text/plain"
+    }
+  }
+}

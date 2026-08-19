@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Metrics API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initializes the metrics system by specifying a named pipe or a file for the metrics output.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/metrics"
+          },
+          "docs": "Initializes the metrics system by specifying a named pipe or a file for the metrics output."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

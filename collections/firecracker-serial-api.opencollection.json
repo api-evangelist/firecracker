@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Serial API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serial",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Configures the serial console",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/serial"
+          },
+          "docs": "Configure the serial console, which the guest can write its kernel logs to. Has no effect if the serial console is not also enabled on the guest kernel command line"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Firecracker Actions Pmem API",
+    "version": "1.16.0-dev"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pmem",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates or updates a pmem device. Pre-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/pmem/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the guest pmem device"
+              }
+            ]
+          },
+          "docs": "Creates new pmem device with ID specified by id parameter. If a pmem device with the specified ID already exists, updates its state based on new input. Will fail if update is not possible."
+        },
+        {
+          "info": {
+            "name": "Updates the rate limiter of a pmem device. Post-boot only.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/pmem/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the guest pmem device"
+              }
+            ]
+          },
+          "docs": "Updates the rate limiter applied to the pmem device with the ID specified by the id path parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
