@@ -22,6 +22,14 @@ tags:
 - AWS
 - Containers
 - MicroVMs
+- Open-Source
+- Serverless
+- Virtualization
+- KVM
+tags_raw:
+- AWS
+- Containers
+- MicroVMs
 - Open Source
 - Serverless
 - Virtualization
@@ -377,6 +385,8 @@ apis:
   humanURL: https://github.com/firecracker-microvm/firecracker
   baseURL: http://localhost/
   tags:
+  - vm
+  tags_raw:
   - Vm
   properties:
   - type: OpenAPI
