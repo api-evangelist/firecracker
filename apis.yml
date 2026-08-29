@@ -5,6 +5,19 @@ description: Firecracker is an open source virtual machine monitor (VMM) built b
   isolation of traditional VMs with the speed and resource efficiency of containers. Firecracker exposes a RESTful management
   API over a Unix Domain Socket, specified in OpenAPI (Swagger 2.0).
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: Apache-2.0
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
