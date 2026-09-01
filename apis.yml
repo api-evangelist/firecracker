@@ -398,7 +398,7 @@ apis:
   humanURL: https://github.com/firecracker-microvm/firecracker
   baseURL: http://localhost/
   tags:
-  - Vm
+  - vm
   tags_raw:
   - Vm
   properties:
