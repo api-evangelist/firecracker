@@ -1,9 +1,10 @@
 aid: firecracker
 name: Firecracker
-description: Firecracker is an open source virtual machine monitor (VMM) built by Amazon Web Services that uses KVM to create
-  and manage lightweight microVMs. Designed for serverless computing and container workloads, it provides the security and
-  isolation of traditional VMs with the speed and resource efficiency of containers. Firecracker exposes a RESTful management
-  API over a Unix Domain Socket, specified in OpenAPI (Swagger 2.0).
+description: Firecracker is an open source virtual machine monitor (VMM) built by Amazon Web Services
+  that uses KVM to create and manage lightweight microVMs. Designed for serverless computing and container
+  workloads, it provides the security and isolation of traditional VMs with the speed and resource efficiency
+  of containers. Firecracker exposes a RESTful management API over a Unix Domain Socket, specified in
+  OpenAPI (Swagger 2.0).
 type: Index
 deliveryModel:
   model: self-hosted
@@ -49,7 +50,7 @@ tags_raw:
 - KVM
 url: https://raw.githubusercontent.com/api-evangelist/firecracker/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: firecracker:firecracker-actions-api
@@ -173,7 +174,7 @@ apis:
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
 - aid: firecracker:firecracker-firecracker-api-api
-  name: Firecracker Firecracker API API
+  name: Firecracker API
   description: The Firecracker API API from Firecracker — 1 operation(s) for firecracker api.
   humanURL: https://github.com/firecracker-microvm/firecracker
   baseURL: http://localhost/
