@@ -1,6 +1,6 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  title: Firecracker Actions Boot Source API
+  title: Firecracker Boot Source API
   description: RESTful public-facing API. The API is accessible through HTTP calls on specific URLs carrying JSON modeled data. The transport medium is a Unix Domain Socket.
   version: 1.16.0-dev
   termsOfService: ''
@@ -9,62 +9,61 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-host: localhost
-basePath: /
-schemes:
-- http
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: http://localhost/
 tags:
 - name: Boot Source
 paths:
   /boot-source:
     put:
-      summary: Creates or updates the boot source. Pre-boot only.
+      summary: Creates or updates the boot source. Pre-boot only
       description: Creates new boot source if one does not already exist, otherwise updates it. Will fail if update is not possible.
       operationId: putGuestBootSource
-      parameters:
-      - name: body
-        in: body
-        description: Guest boot source properties
-        required: true
-        schema:
-          $ref: '#/definitions/BootSource'
       responses:
         204:
           description: Boot source created/updated
         400:
           description: Boot source cannot be created due to bad input
-          schema:
-            $ref: '#/definitions/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: Internal server error
-          schema:
-            $ref: '#/definitions/Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BootSource'
+        description: Guest boot source properties
+        required: true
       tags:
       - Boot Source
-definitions:
-  Error:
-    type: object
-    properties:
-      fault_message:
-        type: string
-        description: A description of the error condition
-        readOnly: true
-  BootSource:
-    type: object
-    required:
-    - kernel_image_path
-    description: Boot source descriptor.
-    properties:
-      boot_args:
-        type: string
-        description: Kernel boot arguments
-      initrd_path:
-        type: string
-        description: Host level path to the initrd image used to boot the guest
-      kernel_image_path:
-        type: string
-        description: Host level path to the kernel image used to boot the guest
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
+    BootSource:
+      type: object
+      required:
+      - kernel_image_path
+      description: Boot source descriptor.
+      properties:
+        boot_args:
+          type: string
+          description: Kernel boot arguments
+        initrd_path:
+          type: string
+          description: Host level path to the initrd image used to boot the guest
+        kernel_image_path:
+          type: string
+          description: Host level path to the kernel image used to boot the guest
