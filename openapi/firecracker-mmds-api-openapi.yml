@@ -123,6 +123,10 @@ paths:
       - Mmds
 components:
   schemas:
+    MmdsContentsObject:
+      type: object
+      description: Describes the contents of MMDS in JSON format.
+      additionalProperties: true
     MmdsConfig:
       type: object
       description: Defines the MMDS configuration.
@@ -157,7 +161,3 @@ components:
           type: string
           description: A description of the error condition
           readOnly: true
-    MmdsContentsObject:
-      type: object
-      description: Describes the contents of MMDS in JSON format.
-      additionalProperties: true

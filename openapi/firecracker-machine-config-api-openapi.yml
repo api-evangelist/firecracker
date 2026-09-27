@@ -97,18 +97,6 @@ components:
           type: string
           description: A description of the error condition
           readOnly: true
-    CpuTemplate:
-      type: string
-      description: The CPU Template defines a set of flags to be disabled from the microvm so that the features exposed to the guest are the same as in the selected instance type. This parameter has been deprecated and it will be removed in future Firecracker release.
-      enum:
-      - C3
-      - T2
-      - T2S
-      - T2CL
-      - T2A
-      - V1N1
-      - None
-      default: None
     MachineConfiguration:
       type: object
       description: Describes the number of vCPUs, memory size, SMT capabilities, huge page configuration and the CPU template.
@@ -140,3 +128,15 @@ components:
           - None
           - 2M
           description: Which huge pages configuration (if any) should be used to back guest memory.
+    CpuTemplate:
+      type: string
+      description: The CPU Template defines a set of flags to be disabled from the microvm so that the features exposed to the guest are the same as in the selected instance type. This parameter has been deprecated and it will be removed in future Firecracker release.
+      enum:
+      - C3
+      - T2
+      - T2S
+      - T2CL
+      - T2A
+      - V1N1
+      - None
+      default: None

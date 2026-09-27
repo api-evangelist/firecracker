@@ -39,6 +39,23 @@ paths:
       - Serial
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
+    SerialDevice:
+      type: object
+      description: The configuration of the serial device
+      properties:
+        serial_out_path:
+          type: string
+          description: Path to a file or named pipe on the host to which serial output should be written.
+        rate_limiter:
+          $ref: '#/components/schemas/TokenBucket'
+          description: Optional token bucket for rate limiting serial console output bandwidth. When present, guest writes to the serial port that exceed the configured rate are silently dropped and counted in the `uart.rate_limiter_dropped_bytes` metric. When absent (the default), serial output is not rate-limited.
     TokenBucket:
       type: object
       description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
@@ -61,20 +78,3 @@ components:
           format: int64
           description: The total number of tokens this bucket can hold.
           minimum: 0
-    SerialDevice:
-      type: object
-      description: The configuration of the serial device
-      properties:
-        serial_out_path:
-          type: string
-          description: Path to a file or named pipe on the host to which serial output should be written.
-        rate_limiter:
-          $ref: '#/components/schemas/TokenBucket'
-          description: Optional token bucket for rate limiting serial console output bandwidth. When present, guest writes to the serial port that exceed the configured rate are silently dropped and counted in the `uart.rate_limiter_dropped_bytes` metric. When absent (the default), serial output is not rate-limited.
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true

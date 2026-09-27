@@ -223,36 +223,13 @@ paths:
       - Balloon
 components:
   schemas:
-    BalloonUpdate:
+    Error:
       type: object
-      required:
-      - amount_mib
-      description: Balloon device descriptor.
       properties:
-        amount_mib:
-          type: integer
-          description: Target balloon size in MiB.
-    BalloonHintingStatus:
-      type: object
-      description: Describes the free page hinting status.
-      required:
-      - host_cmd
-      properties:
-        host_cmd:
-          description: The last command issued by the host.
-          type: integer
-        guest_cmd:
-          description: The last command provided by the guest.
-          type: integer
-    BalloonStatsUpdate:
-      type: object
-      required:
-      - stats_polling_interval_s
-      description: Update the statistics polling interval, with the first statistics update scheduled immediately. Statistics cannot be turned on/off after boot.
-      properties:
-        stats_polling_interval_s:
-          type: integer
-          description: Interval in seconds between refreshing statistics.
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
     Balloon:
       type: object
       required:
@@ -282,13 +259,18 @@ components:
         acknowledge_on_stop:
           description: If Firecracker should automatically acknowledge when the guest submits a done cmd.
           type: boolean
-    Error:
+    BalloonHintingStatus:
       type: object
+      description: Describes the free page hinting status.
+      required:
+      - host_cmd
       properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
+        host_cmd:
+          description: The last command issued by the host.
+          type: integer
+        guest_cmd:
+          description: The last command provided by the guest.
+          type: integer
     BalloonStats:
       type: object
       description: Describes the balloon device statistics.
@@ -374,3 +356,21 @@ components:
           description: Amount of memory reclaimed directly.
           type: integer
           format: int64
+    BalloonUpdate:
+      type: object
+      required:
+      - amount_mib
+      description: Balloon device descriptor.
+      properties:
+        amount_mib:
+          type: integer
+          description: Target balloon size in MiB.
+    BalloonStatsUpdate:
+      type: object
+      required:
+      - stats_polling_interval_s
+      description: Update the statistics polling interval, with the first statistics update scheduled immediately. Statistics cannot be turned on/off after boot.
+      properties:
+        stats_polling_interval_s:
+          type: integer
+          description: Interval in seconds between refreshing statistics.

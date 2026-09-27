@@ -36,7 +36,7 @@ tags:
 - AWS
 - Containers
 - MicroVM
-- Open-Source
+- Open Source
 - Serverless
 - Virtualization
 - KVM
@@ -48,6 +48,7 @@ tags_raw:
 - Serverless
 - Virtualization
 - KVM
+- Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/firecracker/refs/heads/main/apis.yml
 created: '2026-03-26'
 modified: '2026-09-16'

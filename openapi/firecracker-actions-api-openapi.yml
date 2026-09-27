@@ -43,6 +43,13 @@ paths:
       - Actions
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
     InstanceActionInfo:
       type: object
       description: Variant wrapper containing the real action.
@@ -56,10 +63,3 @@ components:
           - FlushMetrics
           - InstanceStart
           - SendCtrlAltDel
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
