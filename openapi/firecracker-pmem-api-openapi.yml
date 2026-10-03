@@ -87,13 +87,6 @@ paths:
       - Pmem
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     PartialPmem:
       type: object
       description: Defines a partial pmem device structure, used to update the rate limiter for that device, after microvm start.
@@ -102,26 +95,6 @@ components:
       properties:
         id:
           type: string
-        rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
-    Pmem:
-      type: object
-      required:
-      - id
-      - path_on_host
-      properties:
-        id:
-          type: string
-          description: Identificator for this device.
-        path_on_host:
-          type: string
-          description: Host level path for the virtio-pmem device to use as a backing file.
-        root_device:
-          type: boolean
-          description: Flag to make this device be the root device for VM boot. Setting this flag will fail if there is another device configured to be a root device already.
-        read_only:
-          type: boolean
-          description: Flag to map backing file in read-only mode.
         rate_limiter:
           $ref: '#/components/schemas/RateLimiter'
     RateLimiter:
@@ -156,3 +129,30 @@ components:
           format: int64
           description: The total number of tokens this bucket can hold.
           minimum: 0
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
+    Pmem:
+      type: object
+      required:
+      - id
+      - path_on_host
+      properties:
+        id:
+          type: string
+          description: Identificator for this device.
+        path_on_host:
+          type: string
+          description: Host level path for the virtio-pmem device to use as a backing file.
+        root_device:
+          type: boolean
+          description: Flag to make this device be the root device for VM boot. Setting this flag will fail if there is another device configured to be a root device already.
+        read_only:
+          type: boolean
+          description: Flag to map backing file in read-only mode.
+        rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'

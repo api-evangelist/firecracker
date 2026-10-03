@@ -87,13 +87,16 @@ paths:
       - Drives
 components:
   schemas:
-    Error:
+    RateLimiter:
       type: object
+      description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
       properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
+        bandwidth:
+          $ref: '#/components/schemas/TokenBucket'
+          description: Token bucket with bytes as tokens
+        ops:
+          $ref: '#/components/schemas/TokenBucket'
+          description: Token bucket with operations as tokens
     Drive:
       type: object
       required:
@@ -132,28 +135,6 @@ components:
         socket:
           type: string
           description: Path to the socket of vhost-user-block backend. This field is required for vhost-user-block config should be omitted for virtio-block configuration.
-    PartialDrive:
-      type: object
-      required:
-      - drive_id
-      properties:
-        drive_id:
-          type: string
-        path_on_host:
-          type: string
-          description: Host level path for the guest drive. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
-        rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
-    RateLimiter:
-      type: object
-      description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
-      properties:
-        bandwidth:
-          $ref: '#/components/schemas/TokenBucket'
-          description: Token bucket with bytes as tokens
-        ops:
-          $ref: '#/components/schemas/TokenBucket'
-          description: Token bucket with operations as tokens
     TokenBucket:
       type: object
       description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
@@ -176,3 +157,22 @@ components:
           format: int64
           description: The total number of tokens this bucket can hold.
           minimum: 0
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
+    PartialDrive:
+      type: object
+      required:
+      - drive_id
+      properties:
+        drive_id:
+          type: string
+        path_on_host:
+          type: string
+          description: Host level path for the guest drive. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+        rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'

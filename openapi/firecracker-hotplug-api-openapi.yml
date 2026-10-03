@@ -99,20 +99,6 @@ components:
         requested_size_mib:
           type: integer
           description: Requested size for the hotpluggable memory in MiB.
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
-    MemoryHotplugSizeUpdate:
-      type: object
-      description: An update to the size of the hotpluggable memory region.
-      properties:
-        requested_size_mib:
-          type: integer
-          description: New target region size.
     MemoryHotplugConfig:
       type: object
       description: The configuration of the hotpluggable memory device (virtio-mem)
@@ -130,3 +116,17 @@ components:
           default: 2
           minimum: 2
           description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
+    MemoryHotplugSizeUpdate:
+      type: object
+      description: An update to the size of the hotpluggable memory region.
+      properties:
+        requested_size_mib:
+          type: integer
+          description: New target region size.
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true

@@ -74,27 +74,6 @@ paths:
       - Snapshot
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
-    MemoryBackend:
-      type: object
-      required:
-      - backend_type
-      - backend_path
-      properties:
-        backend_type:
-          type: string
-          enum:
-          - File
-          - Uffd
-        backend_path:
-          type: string
-          description: Based on 'backend_type' it is either 1) Path to the file that contains the guest memory to be loaded 2) Path to the UDS where a process is listening for a UFFD initialization control payload and open file descriptor that it can use to serve this process's guest memory page faults
     SnapshotCreateParams:
       type: object
       required:
@@ -113,6 +92,20 @@ components:
           - Full
           - Diff
           description: Type of snapshot to create. It is optional and by default, a full snapshot is created.
+    MemoryBackend:
+      type: object
+      required:
+      - backend_type
+      - backend_path
+      properties:
+        backend_type:
+          type: string
+          enum:
+          - File
+          - Uffd
+        backend_path:
+          type: string
+          description: Based on 'backend_type' it is either 1) Path to the file that contains the guest memory to be loaded 2) Path to the UDS where a process is listening for a UFFD initialization control payload and open file descriptor that it can use to serve this process's guest memory page faults
     NetworkOverride:
       type: object
       description: Allows for changing the backing TAP device of a network interface during snapshot restore.
@@ -126,6 +119,22 @@ components:
         host_dev_name:
           type: string
           description: The new host device of the interface
+    VsockOverride:
+      type: object
+      description: Allows for changing the backing Unix Domain Socket of a vsock device during snapshot restore.
+      required:
+      - uds_path
+      properties:
+        uds_path:
+          type: string
+          description: The new path for the backing Unix Domain Socket.
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
     SnapshotLoadParams:
       type: object
       description: Defines the configuration used for handling snapshot resume. Exactly one of the two `mem_*` fields must be present in the body of the request.
@@ -161,12 +170,3 @@ components:
         clock_realtime:
           type: boolean
           description: '[x86_64 only] When set to true, passes KVM_CLOCK_REALTIME to KVM_SET_CLOCK on restore, advancing kvmclock by the wall-clock time elapsed since the snapshot was taken. When false (default), kvmclock resumes from where it was at snapshot time. This option may be extended to other clock sources and CPU architectures in the future.'
-    VsockOverride:
-      type: object
-      description: Allows for changing the backing Unix Domain Socket of a vsock device during snapshot restore.
-      required:
-      - uds_path
-      properties:
-        uds_path:
-          type: string
-          description: The new path for the backing Unix Domain Socket.

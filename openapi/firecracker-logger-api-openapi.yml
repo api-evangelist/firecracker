@@ -44,13 +44,6 @@ paths:
       - Logger
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     Logger:
       type: object
       description: Describes the configuration option for the logging capability.
@@ -64,7 +57,7 @@ components:
           - Info
           - Debug
           - Trace
-          - false
+          - 'Off'
           default: Info
         log_path:
           type: string
@@ -81,3 +74,10 @@ components:
           type: string
           description: The module path to filter log messages by.
           example: api_server::request
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true

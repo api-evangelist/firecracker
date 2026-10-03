@@ -44,13 +44,6 @@ paths:
       - Metrics
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     Metrics:
       type: object
       description: Describes the configuration option for the metrics capability.
@@ -60,3 +53,10 @@ components:
         metrics_path:
           type: string
           description: Path to the named pipe or file where the JSON-formatted metrics are flushed.
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true

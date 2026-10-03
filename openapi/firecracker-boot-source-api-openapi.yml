@@ -45,13 +45,6 @@ paths:
       - Boot Source
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     BootSource:
       type: object
       required:
@@ -67,3 +60,10 @@ components:
         kernel_image_path:
           type: string
           description: Host level path to the kernel image used to boot the guest
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
