@@ -437,6 +437,9 @@ apis:
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
 common:
+- type: CapabilityMap
+  url: capabilities/firecracker-capability-edges.yml
+  name: Firecracker Business Capability Map
 - type: IssueTracker
   url: https://github.com/firecracker-microvm/firecracker/issues
 - type: Releases

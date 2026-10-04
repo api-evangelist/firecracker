@@ -1,0 +1,112 @@
+slug: firecracker
+provider: Firecracker
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: Cpu Config
+  spec_file: firecracker-cpu-config-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /cpu-config putCpuConfiguration — Configures CPU features flags for the vCPUs of the guest
+    VM. Pre-boot only
+  reason: Explicit configuration of vCPU features for a virtual machine — compute infrastructure configuration,
+    clearly IT Infrastructure Management.
+- tag: Drives
+  spec_file: firecracker-drives-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /drives/{drive_id} putGuestDriveByID — Creates or updates a drive; schemas Drive, PartialDrive,
+    RateLimiter
+  reason: Attaches and updates block storage devices for a microVM, including rate limiting — storage/compute
+    infrastructure configuration under IT Infrastructure Management.
+- tag: Network Interfaces
+  spec_file: firecracker-network-interfaces-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PUT /network-interfaces/{iface_id}  putGuestNetworkInterfaceByID  Creates a network interface
+  reason: Creates guest virtual network interfaces and applies rate limiters (RateLimiter, TokenBucket
+    schemas) — network infrastructure configuration for virtual machines.
+- tag: vm
+  spec_file: firecracker-vm-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: PATCH /vm  patchVm  Updates the microVM state ... GET /vm/config  getExportVmConfig  Gets
+    the full VM configuration
+  reason: Controls microVM lifecycle state (pause/resume) and exports the full VM configuration (FullVmConfiguration,
+    MachineConfiguration, Drive, NetworkInterface) — management of virtual compute infrastructure.
+- tag: Balloon
+  spec_file: firecracker-balloon-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: PUT /balloon putBalloon — Creates or updates a balloon device; GET /balloon/statistics describeBalloonStats
+  reason: Configures and monitors the guest memory balloon device of a microVM — memory/compute resource
+    control on virtualised infrastructure, i.e. IT Infrastructure Management. Not a monitoring/observability
+    product capability since it is device configuration of the hypervisor.
+- tag: Boot Source
+  spec_file: firecracker-boot-source-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: PUT /boot-source putGuestBootSource — Creates or updates the boot source. Pre-boot only; schema
+    BootSource
+  reason: Sets the kernel/boot image for a guest microVM — provisioning configuration of compute infrastructure,
+    mapping to IT Infrastructure Management.
+- tag: Machine Config
+  spec_file: firecracker-machine-config-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: PUT /machine-config  putMachineConfiguration  Updates the Machine Configuration of the VM.
+    Pre-boot only
+  reason: Sets vCPU/memory machine configuration of a virtual machine (schemas CpuTemplate, MachineConfiguration)
+    — provisioning and sizing of compute infrastructure.
+- tag: Pmem
+  spec_file: firecracker-pmem-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.72
+  evidence: PUT /pmem/{id}  putGuestPmemByID  Creates or updates a pmem device. Pre-boot only
+  reason: Creates persistent-memory block devices for the guest VM with rate limiting — storage infrastructure
+    configuration within the hypervisor.
+- tag: Actions
+  spec_file: firecracker-actions-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: PUT /actions createSyncAction — Creates a synchronous action; schema InstanceActionInfo
+  reason: Firecracker is a VMM; this tag triggers lifecycle actions on a microVM instance (InstanceActionInfo),
+    i.e. control of compute infrastructure. Maps to IT Infrastructure Management; moderate confidence
+    because the single operation is generic.
+- tag: Entropy
+  spec_file: firecracker-entropy-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: PUT /entropy putEntropyDevice — Creates an entropy device. Pre-boot only; schema EntropyDevice
+  reason: Creates a virtual entropy (RNG) device for the guest VM — a device-level infrastructure configuration
+    operation, mapping to IT Infrastructure Management rather than any security-programme capability.
