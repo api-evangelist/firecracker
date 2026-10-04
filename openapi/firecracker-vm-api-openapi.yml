@@ -65,18 +65,6 @@ paths:
       - vm
 components:
   schemas:
-    CpuTemplate:
-      type: string
-      description: The CPU Template defines a set of flags to be disabled from the microvm so that the features exposed to the guest are the same as in the selected instance type. This parameter has been deprecated and it will be removed in future Firecracker release.
-      enum:
-      - C3
-      - T2
-      - T2S
-      - T2CL
-      - T2A
-      - V1N1
-      - None
-      default: None
     CpuidRegisterModifier:
       type: object
       description: Modifier for a specific CPUID register within a leaf (x86_64)
@@ -95,6 +83,59 @@ components:
         bitmap:
           type: string
           description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000000000001" or "0bxxxxxxxxxxxxxxxxxxxxxxxxxxxx0001"
+    BootSource:
+      type: object
+      required:
+      - kernel_image_path
+      description: Boot source descriptor.
+      properties:
+        boot_args:
+          type: string
+          description: Kernel boot arguments
+        initrd_path:
+          type: string
+          description: Host level path to the initrd image used to boot the guest
+        kernel_image_path:
+          type: string
+          description: Host level path to the kernel image used to boot the guest
+    MmdsConfig:
+      type: object
+      description: Defines the MMDS configuration.
+      required:
+      - network_interfaces
+      properties:
+        version:
+          description: Enumeration indicating the MMDS version to be configured.
+          type: string
+          enum:
+          - V1
+          - V2
+          default: V1
+        network_interfaces:
+          description: List of the network interface IDs capable of forwarding packets to the MMDS. Network interface IDs mentioned must be valid at the time of this request. The net device model will reply to HTTP GET requests sent to the MMDS address via the interfaces mentioned. In this case, both ARP requests and TCP segments heading to `ipv4_address` are intercepted by the device model, and do not reach the associated TAP device.
+          type: array
+          items:
+            type: string
+        ipv4_address:
+          type: string
+          format: 169.254.([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])
+          default: 169.254.169.254
+          description: A valid IPv4 link-local address.
+        imds_compat:
+          type: boolean
+          description: MMDS operates compatibly with EC2 IMDS (i.e. responds "text/plain" content regardless of Accept header in requests).
+          default: false
+    Vm:
+      type: object
+      description: Defines the microVM running state. It is especially useful in the snapshotting context.
+      required:
+      - state
+      properties:
+        state:
+          type: string
+          enum:
+          - Paused
+          - Resumed
     TokenBucket:
       type: object
       description: Defines a token bucket with a maximum capacity (size), an initial burst size (one_time_burst) and an interval for refilling purposes (refill_time). The refill-rate is derived from size and refill_time, and it is the constant rate at which the tokens replenish. The refill process only starts happening after the initial burst budget is consumed. Consumption from the token bucket is unbounded in speed which allows for bursts bound in size by the amount of tokens available. Once the token bucket is empty, consumption speed is bound by the refill_rate.
@@ -117,70 +158,77 @@ components:
           format: int64
           description: The total number of tokens this bucket can hold.
           minimum: 0
-    Error:
+    MsrModifier:
       type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
-    CpuidLeafModifier:
-      type: object
-      description: Modifier for a CPUID leaf and subleaf (x86_64)
-      required:
-      - leaf
-      - subleaf
-      - flags
-      - modifiers
-      properties:
-        leaf:
-          type: string
-          description: CPUID leaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0"))
-        subleaf:
-          type: string
-          description: CPUID subleaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
-        flags:
-          type: integer
-          format: int32
-          description: KVM feature flags for this leaf-subleaf
-        modifiers:
-          type: array
-          description: Register modifiers for this CPUID leaf
-          items:
-            $ref: '#/components/schemas/CpuidRegisterModifier'
-    Pmem:
-      type: object
-      required:
-      - id
-      - path_on_host
-      properties:
-        id:
-          type: string
-          description: Identificator for this device.
-        path_on_host:
-          type: string
-          description: Host level path for the virtio-pmem device to use as a backing file.
-        root_device:
-          type: boolean
-          description: Flag to make this device be the root device for VM boot. Setting this flag will fail if there is another device configured to be a root device already.
-        read_only:
-          type: boolean
-          description: Flag to map backing file in read-only mode.
-        rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
-    ArmRegisterModifier:
-      type: object
-      description: Modifier for an ARM register (aarch64)
+      description: Modifier for a model specific register (x86_64)
       required:
       - addr
       - bitmap
       properties:
         addr:
           type: string
-          description: 64-bit register address as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
+          description: 32-bit MSR address as hex, binary, or decimal string (e.g., "0x10a", "0b100001010", "266")
         bitmap:
           type: string
-          description: 128-bit bitmap string defining which bits to modify. Format is "0b" followed by up to 128 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
+          description: 64-bit bitmap string defining which bits to modify. Format is "0b" followed by 64 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
+    Logger:
+      type: object
+      description: Describes the configuration option for the logging capability.
+      properties:
+        level:
+          type: string
+          description: Set the level. The possible values are case-insensitive.
+          enum:
+          - Error
+          - Warning
+          - Info
+          - Debug
+          - Trace
+          - 'Off'
+          default: Info
+        log_path:
+          type: string
+          description: Path to the named pipe or file for the human readable log output.
+        show_level:
+          type: boolean
+          description: Whether or not to output the level in the logs.
+          default: false
+        show_log_origin:
+          type: boolean
+          description: Whether or not to include the file path and line number of the log's origin.
+          default: false
+        module:
+          type: string
+          description: The module path to filter log messages by.
+          example: api_server::request
+    EntropyDevice:
+      type: object
+      description: Defines an entropy device.
+      properties:
+        rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'
+    Balloon:
+      type: object
+      required:
+      - amount_mib
+      - deflate_on_oom
+      description: Balloon device descriptor.
+      properties:
+        amount_mib:
+          type: integer
+          description: Target balloon size in MiB.
+        deflate_on_oom:
+          type: boolean
+          description: Whether the balloon should deflate when the guest has memory pressure.
+        stats_polling_interval_s:
+          type: integer
+          description: Interval in seconds between refreshing statistics. A non-zero value will enable the statistics. Defaults to 0.
+        free_page_hinting:
+          type: boolean
+          description: Whether the free page hinting feature is enabled.
+        free_page_reporting:
+          type: boolean
+          description: Whether the free page reporting feature is enabled.
     MachineConfiguration:
       type: object
       description: Describes the number of vCPUs, memory size, SMT capabilities, huge page configuration and the CPU template.
@@ -212,6 +260,24 @@ components:
           - None
           - 2M
           description: Which huge pages configuration (if any) should be used to back guest memory.
+    NetworkInterface:
+      type: object
+      description: Defines a network interface.
+      required:
+      - host_dev_name
+      - iface_id
+      properties:
+        guest_mac:
+          type: string
+        host_dev_name:
+          type: string
+          description: Host level path for the guest network interface
+        iface_id:
+          type: string
+        rx_rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'
+        tx_rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'
     VcpuFeatures:
       type: object
       description: vCPU feature modifier (aarch64)
@@ -226,6 +292,19 @@ components:
         bitmap:
           type: string
           description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000001100000"
+    ArmRegisterModifier:
+      type: object
+      description: Modifier for an ARM register (aarch64)
+      required:
+      - addr
+      - bitmap
+      properties:
+        addr:
+          type: string
+          description: 64-bit register address as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
+        bitmap:
+          type: string
+          description: 128-bit bitmap string defining which bits to modify. Format is "0b" followed by up to 128 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
     Drive:
       type: object
       required:
@@ -264,15 +343,26 @@ components:
         socket:
           type: string
           description: Path to the socket of vhost-user-block backend. This field is required for vhost-user-block config should be omitted for virtio-block configuration.
-    Metrics:
+    Pmem:
       type: object
-      description: Describes the configuration option for the metrics capability.
       required:
-      - metrics_path
+      - id
+      - path_on_host
       properties:
-        metrics_path:
+        id:
           type: string
-          description: Path to the named pipe or file where the JSON-formatted metrics are flushed.
+          description: Identificator for this device.
+        path_on_host:
+          type: string
+          description: Host level path for the virtio-pmem device to use as a backing file.
+        root_device:
+          type: boolean
+          description: Flag to make this device be the root device for VM boot. Setting this flag will fail if there is another device configured to be a root device already.
+        read_only:
+          type: boolean
+          description: Flag to map backing file in read-only mode.
+        rate_limiter:
+          $ref: '#/components/schemas/RateLimiter'
     Vsock:
       type: object
       description: Defines a vsock device, backed by a set of Unix Domain Sockets, on the host side. For host-initiated connections, Firecracker will be listening on the Unix socket identified by the path `uds_path`. Firecracker will create this socket, bind and listen on it. Host-initiated connections will be performed by connection to this socket and issuing a connection forwarding request to the desired guest-side vsock port (i.e. `CONNECT 52\n`, to connect to port 52). For guest-initiated connections, Firecracker will expect host software to be bound and listening on Unix sockets at `uds_path_<PORT>`. E.g. "/path/to/host_vsock.sock_52" for port number 52.
@@ -290,46 +380,39 @@ components:
         vsock_id:
           type: string
           description: This parameter has been deprecated and it will be removed in future Firecracker release.
-    NetworkInterface:
+    Metrics:
       type: object
-      description: Defines a network interface.
+      description: Describes the configuration option for the metrics capability.
       required:
-      - host_dev_name
-      - iface_id
+      - metrics_path
       properties:
-        guest_mac:
+        metrics_path:
           type: string
-        host_dev_name:
-          type: string
-          description: Host level path for the guest network interface
-        iface_id:
-          type: string
-        rx_rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
-        tx_rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
-    Balloon:
+          description: Path to the named pipe or file where the JSON-formatted metrics are flushed.
+    CpuidLeafModifier:
       type: object
+      description: Modifier for a CPUID leaf and subleaf (x86_64)
       required:
-      - amount_mib
-      - deflate_on_oom
-      description: Balloon device descriptor.
+      - leaf
+      - subleaf
+      - flags
+      - modifiers
       properties:
-        amount_mib:
+        leaf:
+          type: string
+          description: CPUID leaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0"))
+        subleaf:
+          type: string
+          description: CPUID subleaf index as hex, binary, or decimal string (e.g., "0x0", "0b0", "0")
+        flags:
           type: integer
-          description: Target balloon size in MiB.
-        deflate_on_oom:
-          type: boolean
-          description: Whether the balloon should deflate when the guest has memory pressure.
-        stats_polling_interval_s:
-          type: integer
-          description: Interval in seconds between refreshing statistics. A non-zero value will enable the statistics. Defaults to 0.
-        free_page_hinting:
-          type: boolean
-          description: Whether the free page hinting feature is enabled.
-        free_page_reporting:
-          type: boolean
-          description: Whether the free page reporting feature is enabled.
+          format: int32
+          description: KVM feature flags for this leaf-subleaf
+        modifiers:
+          type: array
+          description: Register modifiers for this CPUID leaf
+          items:
+            $ref: '#/components/schemas/CpuidRegisterModifier'
     CpuConfig:
       type: object
       description: The CPU configuration template defines a set of bit maps as modifiers of flags accessed by register to be disabled/enabled for the microvm.
@@ -360,6 +443,42 @@ components:
           description: A collection of vCPU features to be modified (aarch64 only)
           items:
             $ref: '#/components/schemas/VcpuFeatures'
+    MemoryHotplugConfig:
+      type: object
+      description: The configuration of the hotpluggable memory device (virtio-mem)
+      properties:
+        total_size_mib:
+          type: integer
+          description: Total size of the hotpluggable memory in MiB.
+        slot_size_mib:
+          type: integer
+          default: 128
+          minimum: 128
+          description: Slot size for the hotpluggable memory in MiB. This will determine the granularity of hot-plug memory from the host. Refer to the device documentation on how to tune this value.
+        block_size_mib:
+          type: integer
+          default: 2
+          minimum: 2
+          description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
+    CpuTemplate:
+      type: string
+      description: The CPU Template defines a set of flags to be disabled from the microvm so that the features exposed to the guest are the same as in the selected instance type. This parameter has been deprecated and it will be removed in future Firecracker release.
+      enum:
+      - C3
+      - T2
+      - T2S
+      - T2CL
+      - T2A
+      - V1N1
+      - None
+      default: None
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
     FullVmConfiguration:
       type: object
       properties:
@@ -398,101 +517,6 @@ components:
           $ref: '#/components/schemas/Vsock'
         entropy:
           $ref: '#/components/schemas/EntropyDevice'
-    BootSource:
-      type: object
-      required:
-      - kernel_image_path
-      description: Boot source descriptor.
-      properties:
-        boot_args:
-          type: string
-          description: Kernel boot arguments
-        initrd_path:
-          type: string
-          description: Host level path to the initrd image used to boot the guest
-        kernel_image_path:
-          type: string
-          description: Host level path to the kernel image used to boot the guest
-    MemoryHotplugConfig:
-      type: object
-      description: The configuration of the hotpluggable memory device (virtio-mem)
-      properties:
-        total_size_mib:
-          type: integer
-          description: Total size of the hotpluggable memory in MiB.
-        slot_size_mib:
-          type: integer
-          default: 128
-          minimum: 128
-          description: Slot size for the hotpluggable memory in MiB. This will determine the granularity of hot-plug memory from the host. Refer to the device documentation on how to tune this value.
-        block_size_mib:
-          type: integer
-          default: 2
-          minimum: 2
-          description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
-    MmdsConfig:
-      type: object
-      description: Defines the MMDS configuration.
-      required:
-      - network_interfaces
-      properties:
-        version:
-          description: Enumeration indicating the MMDS version to be configured.
-          type: string
-          enum:
-          - V1
-          - V2
-          default: V1
-        network_interfaces:
-          description: List of the network interface IDs capable of forwarding packets to the MMDS. Network interface IDs mentioned must be valid at the time of this request. The net device model will reply to HTTP GET requests sent to the MMDS address via the interfaces mentioned. In this case, both ARP requests and TCP segments heading to `ipv4_address` are intercepted by the device model, and do not reach the associated TAP device.
-          type: array
-          items:
-            type: string
-        ipv4_address:
-          type: string
-          format: 169.254.([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])
-          default: 169.254.169.254
-          description: A valid IPv4 link-local address.
-        imds_compat:
-          type: boolean
-          description: MMDS operates compatibly with EC2 IMDS (i.e. responds "text/plain" content regardless of Accept header in requests).
-          default: false
-    Logger:
-      type: object
-      description: Describes the configuration option for the logging capability.
-      properties:
-        level:
-          type: string
-          description: Set the level. The possible values are case-insensitive.
-          enum:
-          - Error
-          - Warning
-          - Info
-          - Debug
-          - Trace
-          - 'Off'
-          default: Info
-        log_path:
-          type: string
-          description: Path to the named pipe or file for the human readable log output.
-        show_level:
-          type: boolean
-          description: Whether or not to output the level in the logs.
-          default: false
-        show_log_origin:
-          type: boolean
-          description: Whether or not to include the file path and line number of the log's origin.
-          default: false
-        module:
-          type: string
-          description: The module path to filter log messages by.
-          example: api_server::request
-    EntropyDevice:
-      type: object
-      description: Defines an entropy device.
-      properties:
-        rate_limiter:
-          $ref: '#/components/schemas/RateLimiter'
     RateLimiter:
       type: object
       description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
@@ -503,27 +527,3 @@ components:
         ops:
           $ref: '#/components/schemas/TokenBucket'
           description: Token bucket with operations as tokens
-    MsrModifier:
-      type: object
-      description: Modifier for a model specific register (x86_64)
-      required:
-      - addr
-      - bitmap
-      properties:
-        addr:
-          type: string
-          description: 32-bit MSR address as hex, binary, or decimal string (e.g., "0x10a", "0b100001010", "266")
-        bitmap:
-          type: string
-          description: 64-bit bitmap string defining which bits to modify. Format is "0b" followed by 64 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
-    Vm:
-      type: object
-      description: Defines the microVM running state. It is especially useful in the snapshotting context.
-      required:
-      - state
-      properties:
-        state:
-          type: string
-          enum:
-          - Paused
-          - Resumed

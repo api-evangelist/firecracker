@@ -80,25 +80,6 @@ paths:
       - Hotplug
 components:
   schemas:
-    MemoryHotplugStatus:
-      type: object
-      description: The status of the hotpluggable memory device (virtio-mem)
-      properties:
-        total_size_mib:
-          type: integer
-          description: Total size of the hotpluggable memory in MiB.
-        slot_size_mib:
-          type: integer
-          description: Slot size for the hotpluggable memory in MiB.
-        block_size_mib:
-          type: integer
-          description: (Logical) Block size for the hotpluggable memory in MiB.
-        plugged_size_mib:
-          type: integer
-          description: Plugged size for the hotpluggable memory in MiB.
-        requested_size_mib:
-          type: integer
-          description: Requested size for the hotpluggable memory in MiB.
     MemoryHotplugConfig:
       type: object
       description: The configuration of the hotpluggable memory device (virtio-mem)
@@ -123,6 +104,25 @@ components:
         requested_size_mib:
           type: integer
           description: New target region size.
+    MemoryHotplugStatus:
+      type: object
+      description: The status of the hotpluggable memory device (virtio-mem)
+      properties:
+        total_size_mib:
+          type: integer
+          description: Total size of the hotpluggable memory in MiB.
+        slot_size_mib:
+          type: integer
+          description: Slot size for the hotpluggable memory in MiB.
+        block_size_mib:
+          type: integer
+          description: (Logical) Block size for the hotpluggable memory in MiB.
+        plugged_size_mib:
+          type: integer
+          description: Plugged size for the hotpluggable memory in MiB.
+        requested_size_mib:
+          type: integer
+          description: Requested size for the hotpluggable memory in MiB.
     Error:
       type: object
       properties:

@@ -35,13 +35,6 @@ paths:
       - Firecracker API
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     InstanceInfo:
       type: object
       description: Describes MicroVM instance information.
@@ -67,3 +60,10 @@ components:
         vmm_version:
           description: MicroVM hypervisor build version.
           type: string
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
