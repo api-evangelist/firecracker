@@ -437,6 +437,12 @@ apis:
   - type: Design
     url: https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md
 common:
+- type: Plans
+  url: plans/firecracker-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/firecracker-rate-limits.yml
+- type: FinOps
+  url: finops/firecracker-finops.yml
 - type: CapabilityMap
   url: capabilities/firecracker-capability-edges.yml
   name: Firecracker Business Capability Map
