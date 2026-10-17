@@ -90,6 +90,13 @@ paths:
       - Machine Config
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
     MachineConfiguration:
       type: object
       description: Describes the number of vCPUs, memory size, SMT capabilities, huge page configuration and the CPU template.
@@ -133,10 +140,3 @@ components:
       - V1N1
       - None
       default: None
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true

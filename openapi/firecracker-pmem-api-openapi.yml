@@ -87,6 +87,16 @@ paths:
       - Pmem
 components:
   schemas:
+    RateLimiter:
+      type: object
+      description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
+      properties:
+        bandwidth:
+          $ref: '#/components/schemas/TokenBucket'
+          description: Token bucket with bytes as tokens
+        ops:
+          $ref: '#/components/schemas/TokenBucket'
+          description: Token bucket with operations as tokens
     Pmem:
       type: object
       required:
@@ -146,13 +156,3 @@ components:
           type: string
           description: A description of the error condition
           readOnly: true
-    RateLimiter:
-      type: object
-      description: Defines an IO rate limiter with independent bytes/s and ops/s limits. Limits are defined by configuring each of the _bandwidth_ and _ops_ token buckets. This field is optional for virtio-block config and should be omitted for vhost-user-block configuration.
-      properties:
-        bandwidth:
-          $ref: '#/components/schemas/TokenBucket'
-          description: Token bucket with bytes as tokens
-        ops:
-          $ref: '#/components/schemas/TokenBucket'
-          description: Token bucket with operations as tokens

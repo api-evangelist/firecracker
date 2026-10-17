@@ -80,30 +80,6 @@ paths:
       - Hotplug
 components:
   schemas:
-    MemoryHotplugConfig:
-      type: object
-      description: The configuration of the hotpluggable memory device (virtio-mem)
-      properties:
-        total_size_mib:
-          type: integer
-          description: Total size of the hotpluggable memory in MiB.
-        slot_size_mib:
-          type: integer
-          default: 128
-          minimum: 128
-          description: Slot size for the hotpluggable memory in MiB. This will determine the granularity of hot-plug memory from the host. Refer to the device documentation on how to tune this value.
-        block_size_mib:
-          type: integer
-          default: 2
-          minimum: 2
-          description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
-    MemoryHotplugSizeUpdate:
-      type: object
-      description: An update to the size of the hotpluggable memory region.
-      properties:
-        requested_size_mib:
-          type: integer
-          description: New target region size.
     MemoryHotplugStatus:
       type: object
       description: The status of the hotpluggable memory device (virtio-mem)
@@ -123,6 +99,30 @@ components:
         requested_size_mib:
           type: integer
           description: Requested size for the hotpluggable memory in MiB.
+    MemoryHotplugSizeUpdate:
+      type: object
+      description: An update to the size of the hotpluggable memory region.
+      properties:
+        requested_size_mib:
+          type: integer
+          description: New target region size.
+    MemoryHotplugConfig:
+      type: object
+      description: The configuration of the hotpluggable memory device (virtio-mem)
+      properties:
+        total_size_mib:
+          type: integer
+          description: Total size of the hotpluggable memory in MiB.
+        slot_size_mib:
+          type: integer
+          default: 128
+          minimum: 128
+          description: Slot size for the hotpluggable memory in MiB. This will determine the granularity of hot-plug memory from the host. Refer to the device documentation on how to tune this value.
+        block_size_mib:
+          type: integer
+          default: 2
+          minimum: 2
+          description: (Logical) Block size for the hotpluggable memory in MiB. This will determine the logical granularity of hot-plug memory for the guest. Refer to the device documentation on how to tune this value.
     Error:
       type: object
       properties:

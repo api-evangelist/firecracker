@@ -44,24 +44,6 @@ paths:
       - Cpu Config
 components:
   schemas:
-    CpuidRegisterModifier:
-      type: object
-      description: Modifier for a specific CPUID register within a leaf (x86_64)
-      required:
-      - register
-      - bitmap
-      properties:
-        register:
-          type: string
-          description: Target CPUID register name
-          enum:
-          - eax
-          - ebx
-          - ecx
-          - edx
-        bitmap:
-          type: string
-          description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000000000001" or "0bxxxxxxxxxxxxxxxxxxxxxxxxxxxx0001"
     ArmRegisterModifier:
       type: object
       description: Modifier for an ARM register (aarch64)
@@ -112,13 +94,6 @@ components:
         bitmap:
           type: string
           description: 64-bit bitmap string defining which bits to modify. Format is "0b" followed by 64 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Underscores can be used for readability. Example "0b0000000000000000000000000000000000000000000000000000000000000001"
-    Error:
-      type: object
-      properties:
-        fault_message:
-          type: string
-          description: A description of the error condition
-          readOnly: true
     CpuConfig:
       type: object
       description: The CPU configuration template defines a set of bit maps as modifiers of flags accessed by register to be disabled/enabled for the microvm.
@@ -163,3 +138,28 @@ components:
         bitmap:
           type: string
           description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000001100000"
+    CpuidRegisterModifier:
+      type: object
+      description: Modifier for a specific CPUID register within a leaf (x86_64)
+      required:
+      - register
+      - bitmap
+      properties:
+        register:
+          type: string
+          description: Target CPUID register name
+          enum:
+          - eax
+          - ebx
+          - ecx
+          - edx
+        bitmap:
+          type: string
+          description: 32-bit bitmap string defining which bits to modify. Format is "0b" followed by 32 characters where '0' = clear bit, '1' = set bit, 'x' = don't modify. Example "0b00000000000000000000000000000001" or "0bxxxxxxxxxxxxxxxxxxxxxxxxxxxx0001"
+    Error:
+      type: object
+      properties:
+        fault_message:
+          type: string
+          description: A description of the error condition
+          readOnly: true
