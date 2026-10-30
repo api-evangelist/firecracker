@@ -1,4 +1,4 @@
-# Firecracker (firecracker)
+# Firecracker
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,59 +66,147 @@
 
 Firecracker is an open source virtual machine monitor (VMM) built by Amazon Web Services that uses KVM to create and manage lightweight microVMs. Designed for serverless computing and container workloads, it provides the security and isolation of traditional VMs with the speed and resource efficiency of containers. Firecracker exposes a RESTful management API over a Unix Domain Socket, specified in OpenAPI (Swagger 2.0).
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/firecracker/refs/heads/main/apis.yml)
+**Areas:** Containers · MicroVM · Open Source · Serverless · Virtualization · KVM
 
-## Scope
+## Firecracker on APIs.io
 
-- **Type:** Index
+Everything profiled for Firecracker is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/firecracker/](https://apis.io/providers/firecracker/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (19)
 
- - AWS, Containers, MicroVMs, Open Source, Serverless, Virtualization, KVM
+- [Firecracker Actions API](https://apis.io/apis/firecracker/firecracker-actions-api/) — The Actions API from Firecracker — 1 operation(s) for actions.
+- [Firecracker Balloon API](https://apis.io/apis/firecracker/firecracker-balloon-api/) — The Balloon API from Firecracker — 5 operation(s) for balloon.
+- [Firecracker Boot Source API](https://apis.io/apis/firecracker/firecracker-boot-source-api/) — The Boot Source API from Firecracker — 1 operation(s) for boot source.
+- [Firecracker Cpu Config API](https://apis.io/apis/firecracker/firecracker-cpu-config-api/) — The Cpu Config API from Firecracker — 1 operation(s) for cpu config.
+- [Firecracker Drives API](https://apis.io/apis/firecracker/firecracker-drives-api/) — The Drives API from Firecracker — 1 operation(s) for drives.
+- [Firecracker Entropy API](https://apis.io/apis/firecracker/firecracker-entropy-api/) — The Entropy API from Firecracker — 1 operation(s) for entropy.
+- [Firecracker API](https://apis.io/apis/firecracker/firecracker-firecracker-api-api/) — The Firecracker API API from Firecracker — 1 operation(s) for firecracker api.
+- [Firecracker Hotplug API](https://apis.io/apis/firecracker/firecracker-hotplug-api/) — The Hotplug API from Firecracker — 1 operation(s) for hotplug.
+- [Firecracker Logger API](https://apis.io/apis/firecracker/firecracker-logger-api/) — The Logger API from Firecracker — 1 operation(s) for logger.
+- [Firecracker Machine Config API](https://apis.io/apis/firecracker/firecracker-machine-config-api/) — The Machine Config API from Firecracker — 1 operation(s) for machine config.
+- [Firecracker Metrics API](https://apis.io/apis/firecracker/firecracker-metrics-api/) — The Metrics API from Firecracker — 1 operation(s) for metrics.
+- [Firecracker Mmds API](https://apis.io/apis/firecracker/firecracker-mmds-api/) — The Mmds API from Firecracker — 2 operation(s) for mmds.
+- [Firecracker Network Interfaces API](https://apis.io/apis/firecracker/firecracker-network-interfaces-api/) — The Network Interfaces API from Firecracker — 1 operation(s) for network interfaces.
+- [Firecracker Pmem API](https://apis.io/apis/firecracker/firecracker-pmem-api/) — The Pmem API from Firecracker — 1 operation(s) for pmem.
+- [Firecracker Serial API](https://apis.io/apis/firecracker/firecracker-serial-api/) — The Serial API from Firecracker — 1 operation(s) for serial.
+- [Firecracker Snapshot API](https://apis.io/apis/firecracker/firecracker-snapshot-api/) — The Snapshot API from Firecracker — 2 operation(s) for snapshot.
+- [Firecracker Version API](https://apis.io/apis/firecracker/firecracker-version-api/) — The Version API from Firecracker — 1 operation(s) for version.
+- [Firecracker Vm API](https://apis.io/apis/firecracker/firecracker-vm-api/) — The Vm API from Firecracker — 2 operation(s) for vm.
+- [Firecracker Vsock API](https://apis.io/apis/firecracker/firecracker-vsock-api/) — The Vsock API from Firecracker — 1 operation(s) for vsock.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Firecracker API
-The Firecracker management API is a RESTful public-facing API accessible through HTTP calls over a Unix Domain Socket, carrying JSON modeled data. It is used to configure and control microVMs, including boot source, drives, network interfaces, machine configuration, snapshots, and lifecycle actions. Firecracker powers AWS Lambda and AWS Fargate.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-**Human URL:** [https://github.com/firecracker-microvm/firecracker](https://github.com/firecracker-microvm/firecracker)
+- [Firecracker Agentic Access](https://apis.io/agentic-access/firecracker/firecracker-agentic-access/)
 
-**Base URL:** `http://localhost/` (over Unix Domain Socket)
+#### Collections (19)
 
-#### Tags:
+Postman and Open Collection request collections.
 
- - AWS, Containers, MicroVMs, Open Source, Serverless, Virtualization
+- [Firecracker Actions API](https://apis.io/collections/firecracker/open-firecracker-actions-api/)
+- [Firecracker Actions Balloon API](https://apis.io/collections/firecracker/open-firecracker-balloon-api/)
+- [Firecracker Actions Boot Source API](https://apis.io/collections/firecracker/open-firecracker-boot-source-api/)
+- [Firecracker Actions Cpu Config API](https://apis.io/collections/firecracker/open-firecracker-cpu-config-api/)
+- [Firecracker Actions Drives API](https://apis.io/collections/firecracker/open-firecracker-drives-api/)
+- [Firecracker Actions Entropy API](https://apis.io/collections/firecracker/open-firecracker-entropy-api/)
+- [Firecracker Actions Firecracker API API](https://apis.io/collections/firecracker/open-firecracker-firecracker-api-api/)
+- [Firecracker Actions Hotplug API](https://apis.io/collections/firecracker/open-firecracker-hotplug-api/)
+- [Firecracker Actions Logger API](https://apis.io/collections/firecracker/open-firecracker-logger-api/)
+- [Firecracker Actions Machine Config API](https://apis.io/collections/firecracker/open-firecracker-machine-config-api/)
+- [Firecracker Actions Metrics API](https://apis.io/collections/firecracker/open-firecracker-metrics-api/)
+- [Firecracker Actions Mmds API](https://apis.io/collections/firecracker/open-firecracker-mmds-api/)
+- [Firecracker Actions Network Interfaces API](https://apis.io/collections/firecracker/open-firecracker-network-interfaces-api/)
+- [Firecracker Actions Pmem API](https://apis.io/collections/firecracker/open-firecracker-pmem-api/)
+- [Firecracker Actions Serial API](https://apis.io/collections/firecracker/open-firecracker-serial-api/)
+- [Firecracker Actions Snapshot API](https://apis.io/collections/firecracker/open-firecracker-snapshot-api/)
+- [Firecracker Actions Version API](https://apis.io/collections/firecracker/open-firecracker-version-api/)
+- [Firecracker Actions Vm API](https://apis.io/collections/firecracker/open-firecracker-vm-api/)
+- [Firecracker Actions Vsock API](https://apis.io/collections/firecracker/open-firecracker-vsock-api/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://github.com/firecracker-microvm/firecracker/tree/main/docs)
-- [Getting Started](https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md)
-- [API Requests](https://github.com/firecracker-microvm/firecracker/tree/main/docs/api_requests)
-- [OpenAPI](openapi/firecracker-openapi-original.yaml)
-- [Specification](https://github.com/firecracker-microvm/firecracker/blob/main/SPECIFICATION.md)
-- [Design](https://github.com/firecracker-microvm/firecracker/blob/main/docs/design.md)
+Published plans, tiers and prices.
 
-## Common Properties
+- [Firecracker Plans Pricing](https://apis.io/plans/firecracker/firecracker-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Firecracker Rate Limits](https://apis.io/rate-limits/firecracker/firecracker-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Firecracker Finops](https://apis.io/finops/firecracker/firecracker-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://firecracker-microvm.github.io/)
-- [GitHub Organization](https://github.com/firecracker-microvm)
-- [GitHub Repository](https://github.com/firecracker-microvm/firecracker)
 - [Documentation](https://github.com/firecracker-microvm/firecracker/tree/main/docs)
-- [Getting Started](https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md)
-- [ChangeLog](https://github.com/firecracker-microvm/firecracker/blob/main/CHANGELOG.md)
-- [FAQ](https://github.com/firecracker-microvm/firecracker/blob/main/FAQ.md)
-- [Security](https://github.com/firecracker-microvm/firecracker/blob/main/SECURITY.md)
+- [Getting started](https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md)
+- [Changelog](https://github.com/firecracker-microvm/firecracker/blob/main/CHANGELOG.md)
 - [Blog](https://aws.amazon.com/blogs/opensource/tag/firecracker/)
-- [Slack](https://join.slack.com/t/firecracker-microvm/shared_invite/zt-2tc0mfxpc-tU~HYAYSzLDl5XGGJU3YIg)
-- [Email](mailto:firecracker-maintainers@amazon.com)
+- [Security](https://github.com/firecracker-microvm/firecracker/blob/main/SECURITY.md)
+- [GitHub](https://github.com/firecracker-microvm)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 33.6** — thin · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 37.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 21.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/firecracker/](https://apis.io/providers/firecracker/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Firecracker: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/firecracker/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
